@@ -1,0 +1,44 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="jgzt-halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(118 110) rotate(48) scale(126)">
+      <stop stop-color="#E8FCFF" stop-opacity="0.95" />
+      <stop offset="0.5" stop-color="#42D8FF" stop-opacity="0.28" />
+      <stop offset="1" stop-color="#42D8FF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="jgzt-shell" x1="44" y1="26" x2="226" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" />
+      <stop offset="0.22" stop-color="#EAFBFF" />
+      <stop offset="0.62" stop-color="#82E8FF" />
+      <stop offset="1" stop-color="#29BFFF" />
+    </linearGradient>
+    <linearGradient id="jgzt-core" x1="70" y1="72" x2="198" y2="206" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" />
+      <stop offset="0.58" stop-color="#F4FDFF" />
+      <stop offset="1" stop-color="#B8EEFF" />
+    </linearGradient>
+    <linearGradient id="jgzt-glow" x1="40" y1="28" x2="216" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A9FFFF" />
+      <stop offset="0.55" stop-color="#74E8FF" />
+      <stop offset="1" stop-color="#68F1A5" />
+    </linearGradient>
+    <linearGradient id="jgzt-ring" x1="52" y1="34" x2="214" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9BEFFF" stop-opacity="0.95" />
+      <stop offset="1" stop-color="#3CC8FF" stop-opacity="0.34" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="128" cy="128" r="104" fill="#081A31" opacity="0.92" />
+  <circle cx="128" cy="128" r="96" fill="url(#jgzt-halo)" />
+  <circle cx="128" cy="128" r="88" fill="none" stroke="url(#jgzt-ring)" stroke-width="8" opacity="0.52" />
+
+  <path d="M67 42C92 22 125 14 159 19C193 24 223 43 239 73V93H221V78C207 54 183 38 155 33C127 28 98 33 75 49C52 65 37 91 33 119C29 147 36 176 53 199C70 222 96 237 124 241C152 245 181 238 204 222C217 213 228 201 236 187V154H218V136H257V191C248 210 235 227 218 239C191 259 157 268 123 264C89 260 58 245 36 220C14 195 4 162 8 128C12 94 30 62 57 43L67 42Z" fill="url(#jgzt-shell)" />
+  <circle cx="223" cy="119" r="14" fill="url(#jgzt-shell)" />
+  <rect x="218" y="136" width="22" height="46" rx="8" fill="url(#jgzt-shell)" />
+
+  <circle cx="128" cy="126" r="76" fill="#5BD9FF" opacity="0.26" />
+  <path d="M57 96C90 96 112 108 144 117C165 123 182 126 186 137C189 146 176 154 158 162C143 168 132 175 132 182C132 188 141 193 152 197L195 212C175 225 152 231 127 230C97 229 70 215 53 193L66 186L132 156L87 168L83 159L145 134L120 129L70 146C63 130 61 112 64 95L57 96Z" fill="#F3FDFF" opacity="0.95" />
+  <path d="M96 184L130 197" stroke="url(#jgzt-glow)" stroke-width="8" stroke-linecap="round" />
+  <path d="M136 199L162 206" stroke="url(#jgzt-glow)" stroke-width="8" stroke-linecap="round" />
+  <path d="M170 208L196 216" stroke="url(#jgzt-glow)" stroke-width="8" stroke-linecap="round" />
+  <path d="M85 163C100 154 119 145 143 136C167 127 179 120 179 111C179 103 167 96 145 89L93 73C105 69 117 67 129 67C150 67 170 73 186 86V175L121 160C117 159 114 161 112 164C110 168 112 172 116 174L141 185C104 174 83 168 76 167L85 163Z" fill="url(#jgzt-core)" opacity="0.99" />
+</svg>
