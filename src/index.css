@@ -199,21 +199,25 @@ html {
 }
 
 /* Stats number */
-.stat-number {
-  font-family: 'Roboto Mono', monospace;
-  background: linear-gradient(135deg, #38BDF8, #22C55E);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 /* Tag */
 .tech-tag {
   background: rgba(56,189,248,0.1);
-  border: 1px solid rgba(56,189,248,0.2);
-  color: #38BDF8;
+  border: 1px solid rgba(56,189,248,0.18);
+  color: #bae6fd;
   font-size: 0.75rem;
-  padding: 2px 10px;
-  border-radius: 20px;
-  font-family: 'Roboto Mono', monospace;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: 'Lexend', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
 import { Menu, X, Globe } from 'lucide-react'
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
+
 const navKeys = [
   { key: 'nav.home', path: '/' },
   { key: 'nav.about', path: '/about' },
@@ -20,8 +22,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const brandTitle = lang === 'zh' ? '无锡集光智通科技有限公司' : t('nav.company')
   const brandMeta =
-    lang === 'zh' ? '激光透窗技术 · 智能视频侦测装备' : 'Laser Through-Glass · Smart Optical Inspection'
-
+    lang === 'zh' ? '激光透窗技术 · 视频侦测装备 · 智能交通方案' : 'Laser Through-Glass · Optical Inspection · Smart Traffic'
+  const logoSrc = withBase('company-logo.svg')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -49,7 +51,7 @@ export default function Navbar() {
             <div className="relative flex h-[64px] w-[64px] md:h-[72px] md:w-[72px] items-center justify-center overflow-hidden rounded-[22px] border border-cyan-200/35 bg-slate-900/88 shadow-[0_0_46px_rgba(34,211,238,0.18)] ring-1 ring-white/6 transition-transform duration-300 group-hover:scale-[1.03]">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-200/16 via-sky-300/8 to-slate-950/18" />
               <div className="absolute inset-[4px] rounded-[18px] bg-[radial-gradient(circle_at_35%_30%,rgba(18,75,121,0.68),rgba(2,6,23,0.96)_72%)]" />
-              <img src="/company-logo.svg" alt="集光智通 LOGO" className="relative z-10 h-[46px] w-[46px] md:h-[54px] md:w-[54px] object-contain drop-shadow-[0_0_18px_rgba(125,211,252,0.45)]" />
+              <img src={logoSrc} alt="集光智通 LOGO" className="relative z-10 h-[46px] w-[46px] md:h-[54px] md:w-[54px] object-contain drop-shadow-[0_0_18px_rgba(125,211,252,0.45)]" />
             </div>
 
             <div className="min-w-0">

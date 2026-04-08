@@ -1,36 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
 import { ArrowRight, Shield, Camera, Zap, Car, ChevronRight, Play, Award, Crosshair, Telescope, Gem } from 'lucide-react'
 
-function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const started = useRef(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !started.current) {
-        started.current = true
-        let start = 0
-        const duration = 1800
-        const step = (timestamp: number) => {
-          if (start === 0) start = timestamp
-          const progress = Math.min((timestamp - start) / duration, 1)
-          setCount(Math.floor(progress * target))
-          if (progress < 1) requestAnimationFrame(step)
-        }
-        requestAnimationFrame(step)
-      }
-    })
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [target])
-
-  return <span ref={ref}>{count}{suffix}</span>
-}
+const withBase = (path: string) => import.meta.env.BASE_URL + path.replace(/^\/+/, '')
 
 export default function Home() {
+
   const { lang, t } = useLang()
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -45,11 +21,43 @@ export default function Home() {
     return () => clearInterval(timer)
   }, [])
 
-  const stats = [
-    { value: 10, suffix: '+', key: 'stats.years' },
-    { value: 50, suffix: '+', key: 'stats.products' },
-    { value: 200, suffix: '+', key: 'stats.clients' },
-    { value: 30, suffix: '+', key: 'stats.patents' },
+  const trustSignals = [
+    {
+      eyebrowZh: '核心技术',
+      eyebrowEn: 'Core Technology',
+      titleZh: '自研激光透窗专利体系',
+      titleEn: 'Proprietary laser through-glass stack',
+      descZh: '围绕穿透车窗与建筑玻璃成像，形成适用于执法与巡查场景的核心光电能力。',
+      descEn: 'A proprietary optical stack for through-glass imaging in enforcement and inspection scenarios.',
+      accent: 'sky',
+    },
+    {
+      eyebrowZh: '重点客户',
+      eyebrowEn: 'Client Focus',
+      titleZh: '公安与交警执法场景优先',
+      titleEn: 'Designed for police and traffic enforcement',
+      descZh: '解决方案聚焦公安局、交警部门等执法机构的取证、巡查与道路治理需求。',
+      descEn: 'Built around evidence collection, inspection, and traffic governance needs for law enforcement agencies.',
+      accent: 'green',
+    },
+    {
+      eyebrowZh: '产品布局',
+      eyebrowEn: 'Portfolio',
+      titleZh: '固定 + 便携 + 无人机三类平台',
+      titleEn: 'Fixed, portable, and drone-mounted platforms',
+      descZh: '覆盖固定卡口、标准路段、机动布控与空中侦测的多层级装备部署。',
+      descEn: 'Supports checkpoints, standard roads, mobile deployment, and airborne inspection.',
+      accent: 'indigo',
+    },
+    {
+      eyebrowZh: '交付方式',
+      eyebrowEn: 'Delivery',
+      titleZh: '方案咨询到资料交付一体化',
+      titleEn: 'Integrated solution consulting and documentation',
+      descZh: '支持方案沟通、规格书资料、演示视频与项目部署交流，适配政企采购链路。',
+      descEn: 'Combines consulting, specifications, demo media, and deployment communication for enterprise procurement.',
+      accent: 'amber',
+    },
   ]
 
   const features = [
@@ -96,7 +104,8 @@ export default function Home() {
       titleEn: 'Advanced Through-Glass Occupant Recognition System',
       desc: '重点道路 / 固定卡口 / 双光谱抓拍',
       descEn: 'Fixed checkpoints / dual-spectrum capture / structured evidence',
-      image: '/images/advanced-through-glass-system.png',
+      image: withBase('images/advanced-through-glass-system.png'),
+
       accent: 'sky',
       specs: ['双900万像素主相机', '21Tops边缘算力', 'IP66'],
       specsEn: ['Dual 9MP capture', '21Tops edge AI', 'IP66'],
@@ -106,7 +115,7 @@ export default function Home() {
       titleEn: 'Portable Laser Through-Glass Intelligent Recognition System',
       desc: '临时布控 / 机动执法 / 电池供电',
       descEn: 'Rapid deployment / mobile enforcement / battery powered',
-      image: '/images/portable-through-glass-system.png',
+      image: withBase('images/portable-through-glass-system.png'),
       accent: 'green',
       specs: ['500Wh续航约12小时', '1-2车道移动检测', '整机约15kg'],
       specsEn: ['500Wh / 12h', '1-2 lane mobile use', 'Approx. 15kg'],
@@ -116,7 +125,7 @@ export default function Home() {
       titleEn: 'Standard Through-Glass Overload Detection System',
       desc: '标准路段 / 规模化建设 / 成本友好',
       descEn: 'Standard roads / scalable deployment / cost efficient',
-      image: '/images/standard-through-glass-system.png',
+      image: withBase('images/standard-through-glass-system.png'),
       accent: 'indigo',
       specs: ['900万像素主相机', '透窗识别+超员预警', '1TB本地存储'],
       specsEn: ['9MP main camera', 'Through-glass overload alert', '1TB storage'],
@@ -142,37 +151,135 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-sky-500/5" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40">
-          <div className="max-w-4xl">
-            {/* Badges */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {['hero.badge1', 'hero.badge2', 'hero.badge3', 'hero.badge4'].map(key => (
-                <span key={key} className="tech-tag animate-slide-up">{t(key)}</span>
-              ))}
+          <div className="grid items-center gap-10 lg:grid-cols-[1.08fr,0.92fr]">
+            <div className="max-w-4xl">
+              <div className="flex flex-wrap gap-2 mb-6">
+                {['hero.badge1', 'hero.badge2', 'hero.badge3', 'hero.badge4'].map(key => (
+                  <span key={key} className="tech-tag animate-slide-up">{t(key)}</span>
+                ))}
+              </div>
+
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
+                <span className="text-white">{t('hero.title1')}</span>
+              </h1>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-sky-300 via-cyan-200 to-slate-100 bg-clip-text text-transparent">
+                  {t('hero.title2')}
+                </span>
+              </h1>
+
+              <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-3xl leading-relaxed">
+                {t('hero.subtitle')}
+              </p>
+
+              <div className="grid gap-3 sm:grid-cols-3 mb-8 max-w-3xl">
+                {[
+                  {
+                    label: lang === 'zh' ? '服务对象' : 'Client Focus',
+                    value: lang === 'zh' ? '公安局 / 交警部门 / 执法机构' : 'Police / traffic agencies / enforcement teams',
+                  },
+                  {
+                    label: lang === 'zh' ? '交付形态' : 'Deployment',
+                    value: lang === 'zh' ? '固定卡口 / 便携设备 / 无人机挂载' : 'Fixed / portable / drone-mounted',
+                  },
+                  {
+                    label: lang === 'zh' ? '核心优势' : 'Strength',
+                    value: lang === 'zh' ? '透窗识别 / 远距取证 / 光电融合' : 'Through-glass / long-range / optical fusion',
+                  },
+                ].map(item => (
+                  <div key={item.label} className="rounded-2xl border border-white/12 bg-white/[0.06] px-4 py-4 shadow-[0_12px_30px_rgba(2,8,23,0.2)] backdrop-blur">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sky-200/70">{item.label}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-100">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <Link to="/products" className="btn-cta text-white px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2 cursor-pointer">
+                  {t('hero.cta1')}
+                  <ArrowRight size={18} />
+                </Link>
+                <Link to="/contact" className="px-8 py-3.5 rounded-xl font-semibold border border-sky-400/35 text-sky-100 hover:bg-sky-500/10 transition-all cursor-pointer flex items-center gap-2 bg-slate-900/35">
+                  {t('hero.cta2')}
+                  <ChevronRight size={18} />
+                </Link>
+              </div>
             </div>
 
-            {/* Main title */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
-              <span className="text-white">{t('hero.title1')}</span>
-            </h1>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-sky-400 to-green-400 bg-clip-text text-transparent">
-                {t('hero.title2')}
-              </span>
-            </h1>
+            <div className="glow-border rounded-[32px] bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(2,6,23,0.88))] p-5 md:p-6 shadow-[0_25px_60px_rgba(2,8,23,0.35)]">
+              <div className="rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),rgba(15,23,42,0.92)_46%,rgba(2,6,23,0.98)_100%)] p-5 md:p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200/70">
+                  {lang === 'zh' ? '政企项目优先能力' : 'Enterprise Delivery Priorities'}
+                </p>
+                <h3 className="mt-3 text-2xl md:text-3xl font-bold text-white leading-tight">
+                  {lang === 'zh' ? '从核心技术到执法场景的完整交付链路' : 'A complete chain from core optics to enforcement scenarios'}
+                </h3>
+                <p className="mt-4 text-sm md:text-base leading-7 text-slate-300">
+                  {lang === 'zh'
+                    ? '官网首页现在把技术底座、重点客户、部署平台和项目对接方式放在同一视觉层级里，更符合政企访客查看资料时的决策路径。'
+                    : 'The hero now surfaces core technology, client focus, deployment platforms, and engagement flow in one decision-friendly layer.'}
+                </p>
 
-            <p className="text-slate-300 text-lg md:text-xl mb-10 max-w-2xl leading-relaxed">
-              {t('hero.subtitle')}
-            </p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {[
+                    {
+                      title: lang === 'zh' ? '技术底座' : 'Technology Base',
+                      desc: lang === 'zh' ? '激光透窗 + 光电成像 + AI辅助识别' : 'Laser through-glass + optical imaging + AI assistance',
+                    },
+                    {
+                      title: lang === 'zh' ? '场景覆盖' : 'Scenario Coverage',
+                      desc: lang === 'zh' ? '道路卡口、机动执法、空中侦测' : 'Road checkpoints, mobile enforcement, aerial inspection',
+                    },
+                    {
+                      title: lang === 'zh' ? '客户类型' : 'Client Types',
+                      desc: lang === 'zh' ? '公安、交警及行业执法单位' : 'Police, traffic agencies, enforcement units',
+                    },
+                    {
+                      title: lang === 'zh' ? '资料交付' : 'Documentation',
+                      desc: lang === 'zh' ? '规格书、演示视频、方案交流同步提供' : 'Spec sheets, demo media, and solution communication',
+                    },
+                  ].map(item => (
+                    <div key={item.title} className="rounded-2xl border border-white/10 bg-slate-950/55 p-4">
+                      <p className="text-sm font-semibold text-white">{item.title}</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-400">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-            <div className="flex flex-wrap gap-4">
-              <Link to="/products" className="btn-cta text-white px-8 py-3.5 rounded-xl font-semibold flex items-center gap-2 cursor-pointer">
-                {t('hero.cta1')}
-                <ArrowRight size={18} />
-              </Link>
-              <Link to="/contact" className="px-8 py-3.5 rounded-xl font-semibold border border-sky-500/40 text-sky-400 hover:bg-sky-500/10 transition-all cursor-pointer flex items-center gap-2">
-                {t('hero.cta2')}
-                <ChevronRight size={18} />
-              </Link>
+              <div className="mt-5 rounded-[28px] border border-white/10 bg-slate-950/80 p-5 md:p-6">
+                <div className="flex items-start gap-4">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-300/75">
+                      {lang === 'zh' ? '核心方案主视觉' : 'Featured Solution'}
+                    </p>
+                    <h4 className="mt-3 text-xl font-bold text-white leading-snug">
+                      {lang === 'zh' ? seriesProducts[0].title : seriesProducts[0].titleEn}
+                    </h4>
+                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                      {lang === 'zh'
+                        ? '重点道路、固定卡口、双光谱抓拍等高强度执法场景优先。'
+                        : 'Prioritized for fixed roadside deployment and checkpoint-grade evidence capture.'}
+                    </p>
+                  </div>
+                  <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl border border-white/10 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.18),rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)] p-3">
+                    <img src={seriesProducts[0].image} alt={lang === 'zh' ? seriesProducts[0].title : seriesProducts[0].titleEn} className="h-full w-full object-contain" />
+                  </div>
+                </div>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {[
+                    { label: lang === 'zh' ? '部署方式' : 'Deployment', value: lang === 'zh' ? '1-2 车道固定卡口' : '1-2 lane checkpoint' },
+                    { label: lang === 'zh' ? '核心能力' : 'Capability', value: lang === 'zh' ? '透窗识别 + 结构化取证' : 'Through-glass + structured evidence' },
+                    { label: lang === 'zh' ? '扩展方向' : 'Expansion', value: lang === 'zh' ? '可与便携式、无人机平台联动' : 'Can extend to portable and drone platforms' },
+                  ].map(item => (
+                    <div key={item.label} className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+                      <p className="text-[11px] uppercase tracking-[0.18em] text-sky-200/70">{item.label}</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-100">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -186,16 +293,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-slate-900 border-y border-sky-500/10 py-12">
+      {/* Trust signals */}
+      <section className="border-y border-sky-500/10 bg-[linear-gradient(180deg,rgba(2,6,23,0.98),rgba(15,23,42,0.94))] py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map(({ value, suffix, key }) => (
-              <div key={key} className="text-center">
-                <p className="stat-number text-4xl md:text-5xl font-bold font-mono mb-1">
-                  <AnimatedCounter target={value} suffix={suffix} />
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-8">
+            <div className="max-w-3xl">
+              <span className="tech-tag mb-4 inline-block">{lang === 'zh' ? '可信锚点' : 'Trust Signals'}</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                {lang === 'zh' ? '把客户最关心的能力直接放到首页前段' : 'Put the most decision-critical strengths upfront'}
+              </h2>
+            </div>
+            <p className="max-w-2xl text-sm md:text-base leading-7 text-slate-300">
+              {lang === 'zh'
+                ? '相比单纯数字计数，首页现在更直接强调核心技术、客户类型、部署平台与交付方式，方便政企访客快速判断方案是否匹配。'
+                : 'Instead of generic counters, the homepage now highlights technology, clients, deployment platforms, and delivery readiness for faster evaluation.'}
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {trustSignals.map(item => (
+              <div key={item.titleZh} className={`rounded-[28px] border bg-gradient-to-br p-6 shadow-[0_18px_50px_rgba(2,8,23,0.26)] ${item.accent === 'sky' ? 'border-sky-400/20 from-sky-500/10 to-slate-950/90' : item.accent === 'green' ? 'border-emerald-400/20 from-emerald-500/10 to-slate-950/90' : item.accent === 'indigo' ? 'border-indigo-400/20 from-indigo-500/10 to-slate-950/90' : 'border-amber-400/20 from-amber-500/10 to-slate-950/90'}`}>
+                <p className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${item.accent === 'sky' ? 'text-sky-300/80' : item.accent === 'green' ? 'text-emerald-300/80' : item.accent === 'indigo' ? 'text-indigo-300/80' : 'text-amber-300/80'}`}>
+                  {lang === 'zh' ? item.eyebrowZh : item.eyebrowEn}
                 </p>
-                <p className="text-slate-400 text-sm">{t(key)}</p>
+                <h3 className="mt-4 text-xl font-bold leading-8 text-white">
+                  {lang === 'zh' ? item.titleZh : item.titleEn}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-slate-300">
+                  {lang === 'zh' ? item.descZh : item.descEn}
+                </p>
               </div>
             ))}
           </div>

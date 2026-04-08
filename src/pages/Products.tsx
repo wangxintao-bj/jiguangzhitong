@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
 import { ChevronDown, ChevronUp, MessageSquare, Zap, Camera, Car, Eye, Download } from 'lucide-react'
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
+
 interface Product {
   id: string
   category: 'surveillance' | 'laser' | 'traffic'
@@ -36,7 +38,8 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP66' },
     ],
     tags: ['高配版', '双光谱抓拍', '固定卡口', '透窗识别', '交通执法'],
-    image: '/images/advanced-through-glass-system.png',
+    image: withBase('images/advanced-through-glass-system.png'),
+
     highlight: true,
   },
   {
@@ -57,7 +60,8 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP66' },
     ],
     tags: ['便携部署', '移动执法', '电池供电', '快速布控', '专项整治'],
-    image: '/images/portable-through-glass-system.png',
+    image: withBase('images/portable-through-glass-system.png'),
+
     highlight: true,
   },
   {
@@ -78,7 +82,7 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP66' },
     ],
     tags: ['简配版', '标准部署', '高性价比', '超员检测', '规模化建设'],
-    image: '/images/standard-through-glass-system.png',
+    image: withBase('images/standard-through-glass-system.png'),
   },
   {
     id: 'JG-WRJ-GZ1',
@@ -99,8 +103,9 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP55' },
     ],
     tags: ['无人机挂载', '激光透窗', '30倍光学变焦', '夜间侦测', 'DJI SkyPort'],
-    image: '/images/jg-wrj-gz1-product.png',
-    docUrl: '/docs/jg-wrj-gz1-spec.docx',
+    image: withBase('images/jg-wrj-gz1-product.png'),
+    docUrl: withBase('docs/jg-wrj-gz1-spec.docx'),
+
     highlight: true,
   },
   {

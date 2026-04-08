@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
-import { Play, Clock, Eye, ChevronRight, FileText } from 'lucide-react'
+import { Play, Eye, ChevronRight, FileText } from 'lucide-react'
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 
 interface VideoItem {
   id: string
@@ -19,8 +21,8 @@ interface VideoItem {
   poster?: string
 }
 
-const fallbackVideoSrc = '/videos/jg-wrj-gz1-demo-web.mp4'
-const fallbackVideoPoster = '/images/jg-wrj-gz1-poster.jpg'
+const fallbackVideoSrc = withBase('videos/jg-wrj-gz1-demo-web.mp4')
+const fallbackVideoPoster = withBase('images/jg-wrj-gz1-poster.jpg')
 
 const videos: VideoItem[] = [
   {
@@ -33,8 +35,9 @@ const videos: VideoItem[] = [
     views: '1920×1080 · 25fps',
     category: '无人机挂载',
     thumbnail: 'sky',
-    src: '/videos/jg-wrj-gz1-demo-web.mp4',
-    poster: '/images/jg-wrj-gz1-poster.jpg',
+    src: withBase('videos/jg-wrj-gz1-demo-web.mp4'),
+    poster: withBase('images/jg-wrj-gz1-poster.jpg'),
+
   },
   {
     id: 'v1',
@@ -251,7 +254,7 @@ export default function Videos() {
                   {lang === 'zh' ? '重新播放当前视频' : 'Replay Current Video'}
                 </button>
                 <a
-                  href="/docs/jg-wrj-gz1-spec.docx"
+                  href={withBase('docs/jg-wrj-gz1-spec.docx')}
                   download
                   className="px-5 py-3 rounded-xl font-semibold border border-white/12 bg-white/5 text-slate-100 hover:border-sky-500/40 hover:bg-sky-500/10 transition-all inline-flex items-center gap-2"
                 >
