@@ -521,16 +521,57 @@ export default function Home() {
       </section>
 
       {/* CTA Band */}
-      <section className="py-16 bg-gradient-to-r from-sky-900/30 via-green-900/20 to-sky-900/30 border-y border-sky-500/10">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <Award size={40} className="text-sky-400 mx-auto mb-4" />
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-            专业团队 · 技术支撑 · 全程服务
-          </h2>
-          <p className="text-slate-400 mb-8">立即联系我们，获取专属解决方案</p>
-          <Link to="/contact" className="btn-cta text-white px-10 py-3.5 rounded-xl font-semibold inline-flex items-center gap-2 cursor-pointer">
-            {t('hero.cta2')} <ArrowRight size={18} />
-          </Link>
+      <section className="border-y border-sky-500/10 bg-gradient-to-r from-sky-900/30 via-green-900/20 to-sky-900/30 py-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="glow-border rounded-[32px] bg-[linear-gradient(180deg,rgba(15,23,42,0.95),rgba(2,6,23,0.92))] px-6 py-10 text-center shadow-[0_24px_60px_rgba(2,8,23,0.28)] md:px-10">
+            <Award size={40} className="mx-auto mb-4 text-sky-400" />
+            <span className="tech-tag mb-4 inline-block">{lang === 'zh' ? '合作与对接' : 'Engagement Flow'}</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
+              {lang === 'zh' ? '方案咨询、资料获取与项目沟通一次完成' : 'Consulting, documentation, and project alignment in one flow'}
+            </h2>
+            <p className="mx-auto max-w-3xl text-slate-300 leading-7">
+              {lang === 'zh'
+                ? '围绕政企客户常见的内部汇报、需求澄清和选型沟通链路，官网把核心方案、规格资料、视频演示与联系入口都集中到了更容易决策的位置。'
+                : 'The site now brings solution summaries, specification files, demo media, and contact entry points together for enterprise decision flows.'}
+            </p>
+
+            <div className="mt-8 grid gap-3 md:grid-cols-3">
+              {[
+                {
+                  titleZh: '方案初判',
+                  titleEn: 'Initial Fit',
+                  descZh: '快速确认固定、便携或无人机平台的适配方向。',
+                  descEn: 'Quickly confirm whether fixed, portable, or drone platforms fit best.',
+                },
+                {
+                  titleZh: '资料输出',
+                  titleEn: 'Documentation',
+                  descZh: '直接获取规格书、演示视频与产品说明，便于内部汇报。',
+                  descEn: 'Access spec sheets, demo videos, and product summaries for internal review.',
+                },
+                {
+                  titleZh: '项目对接',
+                  titleEn: 'Project Contact',
+                  descZh: '进入具体场景沟通与部署方式交流，减少反复解释成本。',
+                  descEn: 'Move into deployment discussion with less repeated explanation.',
+                },
+              ].map(item => (
+                <div key={item.titleZh} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-left">
+                  <p className="text-sm font-semibold text-white">{lang === 'zh' ? item.titleZh : item.titleEn}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">{lang === 'zh' ? item.descZh : item.descEn}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              <Link to="/contact" className="btn-cta inline-flex items-center gap-2 rounded-xl px-10 py-3.5 font-semibold text-white cursor-pointer">
+                {t('hero.cta2')} <ArrowRight size={18} />
+              </Link>
+              <Link to="/products" className="inline-flex items-center gap-2 rounded-xl border border-sky-400/30 bg-slate-900/40 px-8 py-3.5 font-semibold text-sky-100 transition-all hover:bg-sky-500/10 cursor-pointer">
+                {lang === 'zh' ? '先看产品矩阵' : 'Browse Portfolio'} <ChevronRight size={18} />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

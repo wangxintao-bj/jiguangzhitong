@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
-import { ChevronDown, ChevronUp, MessageSquare, Zap, Camera, Car, Eye, Download } from 'lucide-react'
+import { ChevronDown, ChevronUp, MessageSquare, Zap, Camera, Car, Eye, Download, Award, ArrowRight } from 'lucide-react'
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 
@@ -328,6 +328,35 @@ export default function Products() {
 
   const filtered = activeCategory === 'all' ? products : products.filter(p => p.category === activeCategory)
   const featuredProduct = products[0]
+  const selectionGuides = [
+    {
+      accent: 'sky',
+      titleZh: '重点卡口与高强度取证',
+      titleEn: 'Checkpoint-grade evidence collection',
+      productZh: '高配版激光透窗人数识别系统',
+      productEn: 'Advanced Through-Glass Occupant Recognition System',
+      descZh: '优先面向重点道路、固定卡口、双光谱抓拍与高密度结构化取证任务。',
+      descEn: 'Best suited for fixed checkpoints, dual-spectrum capture, and high-density structured evidence tasks.',
+    },
+    {
+      accent: 'indigo',
+      titleZh: '标准路段规模化建设',
+      titleEn: 'Scalable standard-road deployment',
+      productZh: '简配版激光透窗超员检测系统',
+      productEn: 'Standard Through-Glass Overload Detection System',
+      descZh: '适合县区道路、普通路段和成本敏感型批量建设场景。',
+      descEn: 'Designed for county roads, standard sections, and cost-sensitive scaled deployment.',
+    },
+    {
+      accent: 'green',
+      titleZh: '机动布控与专项整治',
+      titleEn: 'Mobile deployment and temporary operations',
+      productZh: '便携式激光透窗智能识别系统',
+      productEn: 'Portable Laser Through-Glass Intelligent Recognition System',
+      descZh: '适合临检、夜查、异地执法与需快速启停的专项整治任务。',
+      descEn: 'Ideal for spot checks, night enforcement, cross-region operations, and fast setup tasks.',
+    },
+  ]
 
   return (
     <div className="min-h-screen pt-20">
@@ -436,6 +465,51 @@ export default function Products() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Selection guide */}
+      <section className="border-b border-sky-500/10 bg-[linear-gradient(180deg,rgba(2,6,23,0.96),rgba(15,23,42,0.92))] py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <span className="tech-tag mb-4 inline-block">{lang === 'zh' ? '选型建议' : 'Selection Guide'}</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                {lang === 'zh' ? '先按任务类型理解三型激光透窗方案' : 'Understand the three through-glass solutions by mission type'}
+              </h2>
+              <p className="mt-4 text-base leading-7 text-slate-300">
+                {lang === 'zh'
+                  ? '相比只按产品名称浏览，这里先按固定卡口、标准路段和机动布控三类任务给出选型建议，更符合政企客户做初筛时的阅读方式。'
+                  : 'Instead of scanning product names first, this section frames recommendations by checkpoint, roadside, and mobile enforcement tasks.'}
+              </p>
+            </div>
+            <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-sky-300 transition-colors hover:text-sky-200 cursor-pointer">
+              {lang === 'zh' ? '带着场景来沟通配置' : 'Discuss configuration by scenario'}
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            {selectionGuides.map(item => (
+              <div key={item.titleZh} className={`rounded-[28px] border bg-gradient-to-br p-6 shadow-[0_18px_48px_rgba(2,8,23,0.22)] ${item.accent === 'sky' ? 'border-sky-400/20 from-sky-500/10 to-slate-950/90' : item.accent === 'green' ? 'border-emerald-400/20 from-emerald-500/10 to-slate-950/90' : 'border-indigo-400/20 from-indigo-500/10 to-slate-950/90'}`}>
+                <p className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${item.accent === 'sky' ? 'text-sky-300/80' : item.accent === 'green' ? 'text-emerald-300/80' : 'text-indigo-300/80'}`}>
+                  {lang === 'zh' ? '任务导向' : 'Mission-oriented'}
+                </p>
+                <h3 className="mt-4 text-xl font-bold leading-8 text-white">
+                  {lang === 'zh' ? item.titleZh : item.titleEn}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-slate-300">
+                  {lang === 'zh' ? item.descZh : item.descEn}
+                </p>
+                <div className="mt-6 rounded-2xl border border-white/10 bg-slate-950/55 p-4">
+                  <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{lang === 'zh' ? '建议优先方案' : 'Recommended First Choice'}</p>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-white">
+                    {lang === 'zh' ? item.productZh : item.productEn}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
