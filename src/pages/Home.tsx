@@ -513,12 +513,6 @@ export default function Home() {
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
               {lang === 'zh' ? '方案咨询、资料获取与项目沟通一次完成' : 'Consulting, documentation, and project alignment in one flow'}
             </h2>
-            <p className="mx-auto max-w-3xl text-slate-300 leading-7">
-              {lang === 'zh'
-                ? '围绕政企客户常见的内部汇报、需求澄清和选型沟通链路,官网把核心方案、规格资料、视频演示与联系入口都集中到了更容易决策的位置。'
-                : 'The site now brings solution summaries, specification files, demo media, and contact entry points together for enterprise decision flows.'}
-            </p>
-
             <div className="mt-8 grid gap-3 md:grid-cols-3">
               {[
                 {
