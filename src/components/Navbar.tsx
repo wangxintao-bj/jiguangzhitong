@@ -48,10 +48,9 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-[86px] md:h-[104px]">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 md:gap-4 group cursor-pointer shrink-0 min-w-0 lg:max-w-[460px] xl:max-w-none">
-            <div className="relative flex h-[64px] w-[64px] md:h-[72px] md:w-[72px] items-center justify-center overflow-hidden rounded-[22px] border border-cyan-200/35 bg-slate-900/88 shadow-[0_0_46px_rgba(34,211,238,0.18)] ring-1 ring-white/6 transition-transform duration-300 group-hover:scale-[1.03]">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-200/16 via-sky-300/8 to-slate-950/18" />
-              <div className="absolute inset-[4px] rounded-[18px] bg-[radial-gradient(circle_at_35%_30%,rgba(18,75,121,0.68),rgba(2,6,23,0.96)_72%)]" />
-              <img src={logoSrc} alt="集光智通 LOGO" className="relative z-10 h-[46px] w-[46px] md:h-[54px] md:w-[54px] object-contain drop-shadow-[0_0_18px_rgba(125,211,252,0.45)]" />
+            <div className="relative flex h-[60px] w-[60px] md:h-[68px] md:w-[68px] items-center justify-center overflow-hidden rounded-[18px] border border-sky-400/20 bg-slate-900/80 shadow-[0_0_24px_rgba(56,189,248,0.12)] transition-all duration-300 group-hover:shadow-[0_0_36px_rgba(56,189,248,0.22)] group-hover:border-sky-400/35 group-hover:scale-[1.03]">
+              <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-emerald-500/5 to-slate-950/20" />
+              <img src={logoSrc} alt="集光智通 LOGO" className="relative z-10 h-[48px] w-[48px] md:h-[56px] md:w-[56px] object-contain drop-shadow-[0_0_14px_rgba(56,189,248,0.3)]" />
             </div>
 
             <div className="min-w-0">
