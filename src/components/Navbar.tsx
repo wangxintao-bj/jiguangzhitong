@@ -20,7 +20,7 @@ export default function Navbar() {
   const location = useLocation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const brandTitle = lang === 'zh' ? '无锡集光智通科技有限公司' : t('nav.company')
+  const brandTitle = lang === 'zh' ? '北京集光智通科技有限公司' : t('nav.company')
   const brandMeta =
     lang === 'zh' ? '激光透窗技术 · 视频侦测装备 · 智能交通方案' : 'Laser Through-Glass · Optical Inspection · Smart Traffic'
   const logoSrc = withBase('company-logo.svg')

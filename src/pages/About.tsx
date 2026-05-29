@@ -26,7 +26,7 @@ export default function About() {
       <SEO
         titleZh="关于我们"
         titleEn="About Us"
-        descriptionZh="了解无锡集光智通科技有限公司 - 专注于视频监控、激光透窗与智能交通领域的高新技术企业。"
+        descriptionZh="了解北京集光智通科技有限公司 - 专注于视频监控、激光透窗与智能交通领域的高新技术企业。"
         descriptionEn="Learn about Jiguang Zhitong Technology - a high-tech enterprise focused on video surveillance, laser through-glass and smart traffic solutions."
         path="about"
       />
@@ -37,7 +37,7 @@ export default function About() {
           <div className="max-w-3xl">
             <span className="tech-tag mb-4 inline-block">{t('about.title')}</span>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 mt-3">
-              无锡集光智通科技<br />
+              北京集光智通科技<br />
               <span className="bg-gradient-to-r from-sky-400 to-green-400 bg-clip-text text-transparent">有限公司</span>
             </h1>
             <p className="text-slate-300 text-lg leading-relaxed">{t('about.desc')}</p>

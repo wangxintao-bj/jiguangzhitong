@@ -123,7 +123,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-slate-500 text-xs">
-            © {currentYear} 无锡集光智通科技有限公司 {t('footer.rights')} · {t('footer.icp')}
+            © {currentYear} 北京集光智通科技有限公司 {t('footer.rights')} · {t('footer.icp')}
           </p>
           <div className="flex items-center gap-1 text-slate-500 text-xs">
             <Shield size={12} className="text-sky-500" />

@@ -11,7 +11,7 @@ interface SEOProps {
 /** 每个页面使用 <SEO> 组件覆盖页面的 title 和 meta description */
 export default function SEO({ titleZh, titleEn, descriptionZh, descriptionEn, path }: SEOProps) {
   const site = 'www.jgzt.cn'
-  const zhTitle = `${titleZh} | 无锡集光智通科技有限公司`
+  const zhTitle = `${titleZh} | 北京集光智通科技有限公司`
   const enTitle = `${titleEn} | Jiguang Zhitong Technology`
   const zhDesc = descriptionZh
   const enDesc = descriptionEn
