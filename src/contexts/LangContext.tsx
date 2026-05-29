@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
 type Lang = 'zh' | 'en'
 
@@ -292,9 +292,22 @@ const translations: Record<Lang, Record<string, string>> = {
 const LangContext = createContext<LangContextType | null>(null)
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>('zh')
+  const [lang, setLang] = useState<Lang>(() => {
+    // 从 localStorage 恢复语言偏好
+    const saved = localStorage.getItem('jgzt_lang')
+    return (saved === 'zh' || saved === 'en') ? saved : 'zh'
+  })
 
-  const toggleLang = () => setLang(prev => prev === 'zh' ? 'en' : 'zh')
+  const toggleLang = () => setLang(prev => {
+    const next = prev === 'zh' ? 'en' : 'zh'
+    localStorage.setItem('jgzt_lang', next)
+    return next
+  })
+
+  // 在 <html> 上设置 lang 属性，辅助屏幕阅读器
+  useEffect(() => {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
+  }, [lang])
 
   const t = (key: string) => translations[lang][key] || key
 

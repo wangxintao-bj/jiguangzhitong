@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
+import SEO from '../components/SEO'
 import { ChevronDown, ChevronUp, MessageSquare, Zap, Camera, Car, Eye, Download, Award, ArrowRight } from 'lucide-react'
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
@@ -38,7 +39,7 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP66' },
     ],
     tags: ['高配版', '双光谱抓拍', '固定卡口', '透窗识别', '交通执法'],
-    image: withBase('images/advanced-through-glass-system.png'),
+    image: withBase('images/advanced-through-glass-system.webp'),
 
     highlight: true,
   },
@@ -60,7 +61,7 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP66' },
     ],
     tags: ['便携部署', '移动执法', '电池供电', '快速布控', '专项整治'],
-    image: withBase('images/portable-through-glass-system.png'),
+    image: withBase('images/portable-through-glass-system.webp'),
 
     highlight: true,
   },
@@ -82,7 +83,7 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP66' },
     ],
     tags: ['简配版', '标准部署', '高性价比', '超员检测', '规模化建设'],
-    image: withBase('images/standard-through-glass-system.png'),
+    image: withBase('images/standard-through-glass-system.webp'),
   },
   {
     id: 'JG-WRJ-GZ1',
@@ -103,7 +104,7 @@ const products: Product[] = [
       { labelZh: '防护等级', labelEn: 'Protection', value: 'IP55' },
     ],
     tags: ['无人机挂载', '激光透窗', '30倍光学变焦', '夜间侦测', 'DJI SkyPort'],
-    image: withBase('images/jg-wrj-gz1-product.png'),
+    image: withBase('images/jg-wrj-gz1-product.webp'),
     docUrl: withBase('docs/jg-wrj-gz1-spec.docx'),
 
     highlight: true,
@@ -242,7 +243,7 @@ function ProductCard({ product }: { product: Product }) {
       {product.image && (
         <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.16),_rgba(15,23,42,0.15)_48%,_rgba(2,6,23,0.98)_100%)] p-6">
           <div className="relative mx-auto flex min-h-[220px] items-center justify-center rounded-2xl border border-white/8 bg-slate-950/70 p-4">
-            <img src={product.image} alt={name} className="max-h-[220px] w-full object-contain" />
+            <img src={product.image} alt={name} loading="lazy" className="max-h-[220px] w-full object-contain" />
           </div>
         </div>
       )}
@@ -360,6 +361,13 @@ export default function Products() {
 
   return (
     <div className="min-h-screen pt-20">
+      <SEO
+        titleZh="产品中心"
+        titleEn="Products"
+        descriptionZh="集光智通核心产品线：激光透窗系统、视频监控设备、智能交通解决方案，覆盖固定卡口、便携部署与无人机挂载。"
+        descriptionEn="Jiguang Zhitong product portfolio: laser through-glass systems, video surveillance and smart traffic solutions for fixed, portable and drone-mounted deployment."
+        path="products"
+      />
       {/* Header */}
       <section className="py-16 relative overflow-hidden tech-grid">
         <div className="absolute inset-0 bg-gradient-to-b from-sky-950/30 to-slate-950" />
@@ -441,7 +449,7 @@ export default function Products() {
 
               <div className="border-t lg:border-t-0 lg:border-l border-white/10 bg-black/20">
                 <div className="relative aspect-[4/3] overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_center,_rgba(56,189,248,0.14),_rgba(15,23,42,0.92)_65%,_rgba(2,6,23,1)_100%)] p-8">
-                  <img src={featuredProduct.image} alt={lang === 'zh' ? featuredProduct.nameZh : featuredProduct.nameEn} className="h-full w-full object-contain" />
+                  <img src={featuredProduct.image} alt={lang === 'zh' ? featuredProduct.nameZh : featuredProduct.nameEn} loading="lazy" className="h-full w-full object-contain" />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/10 to-transparent" />
                   <div className="absolute left-6 right-6 bottom-6">
                     <span className="inline-flex items-center rounded-full border border-sky-400/30 bg-slate-950/70 px-3 py-1 text-xs text-sky-300 backdrop-blur">

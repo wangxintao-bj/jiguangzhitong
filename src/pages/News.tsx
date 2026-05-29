@@ -1,4 +1,5 @@
 import { useLang } from '../contexts/LangContext'
+import SEO from '../components/SEO'
 import { Calendar, Tag, ArrowRight, Eye } from 'lucide-react'
 
 interface NewsItem {
@@ -92,6 +93,13 @@ export default function News() {
 
   return (
     <div className="min-h-screen pt-20">
+      <SEO
+        titleZh="新闻资讯"
+        titleEn="News"
+        descriptionZh="无锡集光智通科技有限公司最新动态、产品发布与行业前沿资讯。"
+        descriptionEn="Latest news, product launches and industry insights from Jiguang Zhitong Technology."
+        path="news"
+      />
       {/* Header */}
       <section className="py-16 relative overflow-hidden tech-grid">
         <div className="absolute inset-0 bg-gradient-to-b from-amber-950/15 to-slate-950" />

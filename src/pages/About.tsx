@@ -1,4 +1,5 @@
 import { useLang } from '../contexts/LangContext'
+import SEO from '../components/SEO'
 import { Shield, Lightbulb, Star, Heart, Award, Users, Target, Eye } from 'lucide-react'
 
 export default function About() {
@@ -22,6 +23,13 @@ export default function About() {
 
   return (
     <div className="min-h-screen pt-20">
+      <SEO
+        titleZh="关于我们"
+        titleEn="About Us"
+        descriptionZh="了解无锡集光智通科技有限公司 - 专注于视频监控、激光透窗与智能交通领域的高新技术企业。"
+        descriptionEn="Learn about Jiguang Zhitong Technology - a high-tech enterprise focused on video surveillance, laser through-glass and smart traffic solutions."
+        path="about"
+      />
       {/* Page hero */}
       <section className="py-20 relative overflow-hidden tech-grid">
         <div className="absolute inset-0 bg-gradient-to-b from-sky-950/30 to-slate-950" />

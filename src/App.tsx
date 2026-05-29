@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LangProvider } from './contexts/LangContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -14,7 +14,7 @@ import Contact from './pages/Contact'
 export default function App() {
   return (
     <LangProvider>
-      <HashRouter>
+      <BrowserRouter>
         <div className="min-h-screen bg-slate-950 text-white flex flex-col">
           <Navbar />
           <main className="flex-1">
@@ -31,7 +31,7 @@ export default function App() {
           <Footer />
           <AIChatbot />
         </div>
-      </HashRouter>
+      </BrowserRouter>
     </LangProvider>
   )
 }

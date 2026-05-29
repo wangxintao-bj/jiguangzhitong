@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
+import SEO from '../components/SEO'
 import { Play, Eye, ChevronRight, FileText } from 'lucide-react'
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
@@ -22,7 +23,7 @@ interface VideoItem {
 }
 
 const fallbackVideoSrc = withBase('videos/jg-wrj-gz1-demo-web.mp4')
-const fallbackVideoPoster = withBase('images/jg-wrj-gz1-poster.jpg')
+const fallbackVideoPoster = withBase('images/jg-wrj-gz1-poster.webp')
 
 const videos: VideoItem[] = [
   {
@@ -36,7 +37,7 @@ const videos: VideoItem[] = [
     category: '无人机挂载',
     thumbnail: 'sky',
     src: withBase('videos/jg-wrj-gz1-demo-web.mp4'),
-    poster: withBase('images/jg-wrj-gz1-poster.jpg'),
+    poster: withBase('images/jg-wrj-gz1-poster.webp'),
 
   },
   {
@@ -150,6 +151,13 @@ export default function Videos() {
 
   return (
     <div className="min-h-screen pt-20">
+      <SEO
+        titleZh="视频演示"
+        titleEn="Video Demos"
+        descriptionZh="集光智通产品视频演示，直观展示激光透窗、智能交通监控、夜视增强等产品性能。"
+        descriptionEn="Jiguang Zhitong product demos - laser through-glass, smart traffic monitoring, night vision enhancement and more."
+        path="videos"
+      />
       <section className="py-16 relative overflow-hidden tech-grid">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/20 to-slate-950" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -306,7 +314,7 @@ export default function Videos() {
                 >
                   <div className="relative rounded-t-2xl overflow-hidden aspect-video border-b border-white/10 bg-slate-900">
                     {video.poster ? (
-                      <img src={video.poster} alt={getVideoTitle(video, lang, t)} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                      <img src={video.poster} alt={getVideoTitle(video, lang, t)} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
                     ) : (
                       <div className={`absolute inset-0 bg-gradient-to-br ${colorPatterns[video.thumbnail]}`} />
                     )}

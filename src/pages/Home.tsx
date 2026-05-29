@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
+import SEO from '../components/SEO'
 import { ArrowRight, Shield, Camera, Zap, Car, ChevronRight, Play, Award, Crosshair, Telescope, Gem } from 'lucide-react'
 
 const withBase = (path: string) => import.meta.env.BASE_URL + path.replace(/^\/+/, '')
@@ -104,7 +105,7 @@ export default function Home() {
       titleEn: 'Advanced Through-Glass Occupant Recognition System',
       desc: '重点道路 / 固定卡口 / 双光谱抓拍',
       descEn: 'Fixed checkpoints / dual-spectrum capture / structured evidence',
-      image: withBase('images/advanced-through-glass-system.png'),
+      image: withBase('images/advanced-through-glass-system.webp'),
 
       accent: 'sky',
       specs: ['双900万像素主相机', '21Tops边缘算力', 'IP66'],
@@ -115,7 +116,7 @@ export default function Home() {
       titleEn: 'Portable Laser Through-Glass Intelligent Recognition System',
       desc: '临时布控 / 机动执法 / 电池供电',
       descEn: 'Rapid deployment / mobile enforcement / battery powered',
-      image: withBase('images/portable-through-glass-system.png'),
+      image: withBase('images/portable-through-glass-system.webp'),
       accent: 'green',
       specs: ['500Wh续航约12小时', '1-2车道移动检测', '整机约15kg'],
       specsEn: ['500Wh / 12h', '1-2 lane mobile use', 'Approx. 15kg'],
@@ -125,7 +126,7 @@ export default function Home() {
       titleEn: 'Standard Through-Glass Overload Detection System',
       desc: '标准路段 / 规模化建设 / 成本友好',
       descEn: 'Standard roads / scalable deployment / cost efficient',
-      image: withBase('images/standard-through-glass-system.png'),
+      image: withBase('images/standard-through-glass-system.webp'),
       accent: 'indigo',
       specs: ['900万像素主相机', '透窗识别+超员预警', '1TB本地存储'],
       specsEn: ['9MP main camera', 'Through-glass overload alert', '1TB storage'],
@@ -134,6 +135,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        titleZh="首页"
+        titleEn="Home"
+        descriptionZh="无锡集光智通科技有限公司 - 聚焦激光透窗、视频监控与智能交通解决方案，服务公安、交警及各类执法场景。"
+        descriptionEn="Jiguang Zhitong Technology - Laser through-glass, video surveillance and smart traffic solutions for law enforcement."
+        path=""
+      />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden tech-grid">
         {/* Animated background */}
@@ -263,7 +271,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-3xl border border-white/10 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.18),rgba(15,23,42,0.92)_70%,rgba(2,6,23,1)_100%)] p-3">
-                    <img src={seriesProducts[0].image} alt={lang === 'zh' ? seriesProducts[0].title : seriesProducts[0].titleEn} className="h-full w-full object-contain" />
+                    <img src={seriesProducts[0].image} alt={lang === 'zh' ? seriesProducts[0].title : seriesProducts[0].titleEn} loading="lazy" className="h-full w-full object-contain" />
                   </div>
                 </div>
 
@@ -433,7 +441,7 @@ export default function Home() {
                 <div className={`h-1.5 bg-gradient-to-r ${product.accent === 'sky' ? 'from-sky-400 to-sky-500/20' : product.accent === 'green' ? 'from-green-400 to-green-500/20' : 'from-indigo-400 to-indigo-500/20'}`} />
                 <div className="p-6 md:p-7">
                   <div className="rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_rgba(15,23,42,0.08)_55%,_rgba(2,6,23,0.95)_100%)] p-6 mb-6 min-h-[260px] flex items-center justify-center">
-                    <img src={product.image} alt={lang === 'zh' ? product.title : product.titleEn} className="max-h-[260px] w-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                    <img src={product.image} alt={lang === 'zh' ? product.title : product.titleEn} loading="lazy" className="max-h-[260px] w-full object-contain transition-transform duration-500 group-hover:scale-105" />
                   </div>
                   <p className={`text-sm font-semibold mb-3 ${product.accent === 'sky' ? 'text-sky-300' : product.accent === 'green' ? 'text-green-300' : 'text-indigo-300'}`}>
                     {lang === 'zh' ? '系列定位' : 'Series Positioning'}

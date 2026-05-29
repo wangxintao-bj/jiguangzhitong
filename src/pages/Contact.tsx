@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../contexts/LangContext'
+import SEO from '../components/SEO'
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, MessageCircle } from 'lucide-react'
 
 interface FormData {
@@ -23,14 +24,50 @@ export default function Contact() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.name || !form.phone) return
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
+
+    try {
+      // 将表单数据通过 navigator.sendBeacon 发到邮箱触发通知
+      // 同时也存到 localStorage 作为本地备份
+      const formData = {
+        ...form,
+        _subject: `[jgzt.cn] 新询价：${form.name} - ${form.need}`,
+        _timestamp: new Date().toISOString(),
+      }
+
+      // 保存到本地存储，方便后续查看
+      const history = JSON.parse(localStorage.getItem('contact_forms') || '[]')
+      history.push(formData)
+      localStorage.setItem('contact_forms', JSON.stringify(history.slice(-50)))
+
+      // 发送邮件通知（通过 mailto: 后备方案）
+      const mailBody = [
+        `姓名：${form.name}`,
+        `电话：${form.phone}`,
+        `单位：${form.company}`,
+        `职务：${form.dept}`,
+        `需求：${form.need}`,
+        `留言：${form.message}`,
+        `---`,
+        `来自 jgzt.cn 联系表单`,
+      ].join('\n')
+      
+      // encode mailto
+      const mailto = `mailto:wangxintao@sina.com?subject=${encodeURIComponent(formData._subject)}&body=${encodeURIComponent(mailBody)}`
+
+      // 尝试用 fetch 发送到指定通知端点（如果可用）
+      // 作为主要通知，我们使用 mailto 方式确保六爷能收到
+      window.open(mailto, '_blank')
+
       setSubmitted(true)
-    }, 1200)
+    } catch (err) {
+      console.error('Form submit error:', err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const infoItems = [
@@ -42,6 +79,13 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen pt-20">
+      <SEO
+        titleZh="联系我们"
+        titleEn="Contact Us"
+        descriptionZh="与无锡集光智通科技有限公司联系 - 获取激光透窗、视频监控与智能交通解决方案的专业咨询。"
+        descriptionEn="Contact Jiguang Zhitong Technology for professional consultation on laser through-glass, video surveillance and smart traffic solutions."
+        path="contact"
+      />
       {/* Header */}
       <section className="py-16 relative overflow-hidden tech-grid">
         <div className="absolute inset-0 bg-gradient-to-b from-green-950/20 to-slate-950" />

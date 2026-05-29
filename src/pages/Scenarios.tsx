@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
+import SEO from '../components/SEO'
 import { Shield, Camera, Zap, Car, AlertTriangle, Globe, ArrowRight, ClipboardCheck, FileStack, Radar } from 'lucide-react'
 
 type Accent = 'sky' | 'green' | 'indigo' | 'amber' | 'rose' | 'cyan'
@@ -190,6 +191,13 @@ export default function Scenarios() {
 
   return (
     <div className="min-h-screen pt-20">
+      <SEO
+        titleZh="应用场景"
+        titleEn="Applications"
+        descriptionZh="集光智通产品在公安侦查、交通执法、边界防控、城市安防、应急指挥与道路管控中的应用方案。"
+        descriptionEn="Jiguang Zhitong solutions for police investigation, traffic enforcement, border control, urban security, emergency command and road control."
+        path="scenarios"
+      />
       <section className="relative overflow-hidden border-b border-sky-500/10 py-16 tech-grid">
         <div className="absolute inset-0 bg-gradient-to-b from-green-950/20 via-slate-950 to-slate-950" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

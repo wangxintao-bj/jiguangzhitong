@@ -1,0 +1,4 @@
+# www.jgzt.cn
+User-agent: *
+Allow: /
+Sitemap: https://www.jgzt.cn/sitemap.xml
