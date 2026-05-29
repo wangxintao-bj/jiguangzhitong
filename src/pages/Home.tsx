@@ -298,14 +298,6 @@ export default function Home() {
       {/* Trust signals */}
       <section className="border-y border-sky-500/10 bg-[linear-gradient(180deg,rgba(2,6,23,0.98),rgba(15,23,42,0.94))] py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-8">
-            <div className="max-w-3xl">
-              <span className="tech-tag mb-4 inline-block">{lang === 'zh' ? '可信锚点' : 'Trust Signals'}</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-                {lang === 'zh' ? '把客户最关心的能力直接放到首页前段' : 'Put the most decision-critical strengths upfront'}
-              </h2>
-            </div>
-          </div>
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {trustSignals.map(item => (
