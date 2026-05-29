@@ -28,7 +28,7 @@ export default function Home() {
       eyebrowEn: 'Core Technology',
       titleZh: '自研激光透窗专利体系',
       titleEn: 'Proprietary laser through-glass stack',
-      descZh: '围绕穿透车窗与建筑玻璃成像，形成适用于执法与巡查场景的核心光电能力。',
+      descZh: '围绕穿透车窗与建筑玻璃成像,形成适用于执法与巡查场景的核心光电能力。',
       descEn: 'A proprietary optical stack for through-glass imaging in enforcement and inspection scenarios.',
       accent: 'sky',
     },
@@ -55,7 +55,7 @@ export default function Home() {
       eyebrowEn: 'Delivery',
       titleZh: '方案咨询到资料交付一体化',
       titleEn: 'Integrated solution consulting and documentation',
-      descZh: '支持方案沟通、规格书资料、演示视频与项目部署交流，适配政企采购链路。',
+      descZh: '支持方案沟通、规格书资料、演示视频与项目部署交流,适配政企采购链路。',
       descEn: 'Combines consulting, specifications, demo media, and deployment communication for enterprise procurement.',
       accent: 'amber',
     },
@@ -73,7 +73,7 @@ export default function Home() {
       icon: <Zap size={28} />,
       title: '激光透窗',
       titleEn: 'Laser Through-Glass',
-      desc: '核心专利技术，雨雾天气下超清成像',
+      desc: '核心专利技术,雨雾天气下超清成像',
       color: 'green',
     },
     {
@@ -87,7 +87,7 @@ export default function Home() {
       icon: <Shield size={28} />,
       title: '公共安全',
       titleEn: 'Public Safety',
-      desc: '服务公安、交警，守护城市公共安全',
+      desc: '服务公安、交警,守护城市公共安全',
       color: 'amber',
     },
   ]
@@ -138,7 +138,7 @@ export default function Home() {
       <SEO
         titleZh="首页"
         titleEn="Home"
-        descriptionZh="北京集光智通科技有限公司 - 聚焦激光透窗、视频监控与智能交通解决方案，服务公安、交警及各类执法场景。"
+        descriptionZh="北京集光智通科技有限公司 - 聚焦激光透窗、视频监控与智能交通解决方案,服务公安、交警及各类执法场景。"
         descriptionEn="Jiguang Zhitong Technology - Laser through-glass, video surveillance and smart traffic solutions for law enforcement."
         path=""
       />
@@ -146,7 +146,7 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden tech-grid">
         {/* Animated background */}
         <div className={`absolute inset-0 bg-gradient-to-br ${slides[currentSlide].bg} transition-all duration-1000`} />
-        
+
         {/* Scan line effect */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-sky-400/30 to-transparent"
@@ -222,12 +222,6 @@ export default function Home() {
                 <h3 className="mt-3 text-2xl md:text-3xl font-bold text-white leading-tight">
                   {lang === 'zh' ? '从核心技术到执法场景的完整交付链路' : 'A complete chain from core optics to enforcement scenarios'}
                 </h3>
-                <p className="mt-4 text-sm md:text-base leading-7 text-slate-300">
-                  {lang === 'zh'
-                    ? '官网首页现在把技术底座、重点客户、部署平台和项目对接方式放在同一视觉层级里，更符合政企访客查看资料时的决策路径。'
-                    : 'The hero now surfaces core technology, client focus, deployment platforms, and engagement flow in one decision-friendly layer.'}
-                </p>
-
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {[
                     {
@@ -311,11 +305,6 @@ export default function Home() {
                 {lang === 'zh' ? '把客户最关心的能力直接放到首页前段' : 'Put the most decision-critical strengths upfront'}
               </h2>
             </div>
-            <p className="max-w-2xl text-sm md:text-base leading-7 text-slate-300">
-              {lang === 'zh'
-                ? '相比单纯数字计数，首页现在更直接强调核心技术、客户类型、部署平台与交付方式，方便政企访客快速判断方案是否匹配。'
-                : 'Instead of generic counters, the homepage now highlights technology, clients, deployment platforms, and delivery readiness for faster evaluation.'}
-            </p>
           </div>
 
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -417,11 +406,6 @@ export default function Home() {
               <h2 className="section-heading text-3xl md:text-4xl font-bold text-white mb-4 inline-block">
                 {lang === 'zh' ? '激光透窗超员检测方案系列' : 'Through-Glass Occupant Detection Portfolio'}
               </h2>
-              <p className="text-slate-300 text-base md:text-lg leading-relaxed mt-6">
-                {lang === 'zh'
-                  ? '把高配版、简配版、便携式三型方案放到首页同一组推荐卡片中，访客能第一时间理解“固定卡口 + 标准部署 + 机动布控”的完整产品梯度。'
-                  : 'The homepage now presents advanced, standard, and portable options together so visitors quickly understand the full checkpoint, roadside, and mobile deployment ladder.'}
-              </p>
             </div>
             <div className="flex flex-wrap gap-3">
               <Link to="/products" className="btn-cta text-white px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2 cursor-pointer">
@@ -539,7 +523,7 @@ export default function Home() {
             </h2>
             <p className="mx-auto max-w-3xl text-slate-300 leading-7">
               {lang === 'zh'
-                ? '围绕政企客户常见的内部汇报、需求澄清和选型沟通链路，官网把核心方案、规格资料、视频演示与联系入口都集中到了更容易决策的位置。'
+                ? '围绕政企客户常见的内部汇报、需求澄清和选型沟通链路,官网把核心方案、规格资料、视频演示与联系入口都集中到了更容易决策的位置。'
                 : 'The site now brings solution summaries, specification files, demo media, and contact entry points together for enterprise decision flows.'}
             </p>
 
@@ -554,13 +538,13 @@ export default function Home() {
                 {
                   titleZh: '资料输出',
                   titleEn: 'Documentation',
-                  descZh: '直接获取规格书、演示视频与产品说明，便于内部汇报。',
+                  descZh: '直接获取规格书、演示视频与产品说明,便于内部汇报。',
                   descEn: 'Access spec sheets, demo videos, and product summaries for internal review.',
                 },
                 {
                   titleZh: '项目对接',
                   titleEn: 'Project Contact',
-                  descZh: '进入具体场景沟通与部署方式交流，减少反复解释成本。',
+                  descZh: '进入具体场景沟通与部署方式交流,减少反复解释成本。',
                   descEn: 'Move into deployment discussion with less repeated explanation.',
                 },
               ].map(item => (
