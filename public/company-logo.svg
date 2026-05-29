@@ -1,35 +1,63 @@
 <svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- 主体渐变 - 天蓝配青绿，呼应网站主色调 -->
-    <linearGradient id="jgzt-main" x1="50" y1="20" x2="220" y2="240" gradientUnits="userSpaceOnUse">
+    <!-- J+G 外壳 - 淡雅天蓝渐变色，半透明 -->
+    <linearGradient id="jgzt-shell" x1="44" y1="26" x2="226" y2="228" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#38BDF8" />
-      <stop offset="0.45" stop-color="#2DD4BF" />
-      <stop offset="0.75" stop-color="#22C55E" />
+      <stop offset="0.4" stop-color="#2DD4BF" />
+      <stop offset="0.7" stop-color="#22C55E" />
       <stop offset="1" stop-color="#16A34A" />
     </linearGradient>
-    <!-- 高光渐变 -->
-    <linearGradient id="jgzt-shine" x1="80" y1="60" x2="180" y2="200" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#BAE6FD" stop-opacity="0.3" />
-      <stop offset="1" stop-color="#5EEAD4" stop-opacity="0.05" />
+    <!-- Z+T 公路 - 明亮天蓝白色光 -->
+    <linearGradient id="zt-road" x1="60" y1="60" x2="200" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#BAE6FD" />
+      <stop offset="0.4" stop-color="#7DD3FC" />
+      <stop offset="0.7" stop-color="#38BDF8" />
+      <stop offset="1" stop-color="#22C55E" />
     </linearGradient>
-    <!-- 底部光效 -->
-    <linearGradient id="jgzt-glow" x1="100" y1="180" x2="160" y2="240" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#38BDF8" stop-opacity="0.25" />
-      <stop offset="1" stop-color="#22C55E" stop-opacity="0" />
+    <!-- 公路光晕 -->
+    <linearGradient id="zt-glow" x1="80" y1="80" x2="180" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7DD3FC" stop-opacity="0.5" />
+      <stop offset="1" stop-color="#5EEAD4" stop-opacity="0.15" />
+    </linearGradient>
+    <!-- 外壳环描边 -->
+    <linearGradient id="jgzt-ring" x1="52" y1="34" x2="214" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38BDF8" stop-opacity="0.4" />
+      <stop offset="0.5" stop-color="#22C55E" stop-opacity="0.25" />
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0.1" />
     </linearGradient>
   </defs>
 
-  <!-- 底部微光 -->
-  <ellipse cx="128" cy="155" rx="70" ry="18" fill="url(#jgzt-glow)" />
+  <!-- 背景深色底（与导航栏背景一致） -->
+  <circle cx="128" cy="128" r="96" fill="#0F172A" opacity="0.85" />
+  <circle cx="128" cy="128" r="92" fill="none" stroke="url(#jgzt-ring)" stroke-width="6" />
 
-  <!-- 外壳主体 -->
-  <path d="M67 42C92 22 125 14 159 19C193 24 223 43 239 73V93H221V78C207 54 183 38 155 33C127 28 98 33 75 49C52 65 37 91 33 119C29 147 36 176 53 199C70 222 96 237 124 241C152 245 181 238 204 222C217 213 228 201 236 187V154H218V136H257V191C248 210 235 227 218 239C191 259 157 268 123 264C89 260 58 245 36 220C14 195 4 162 8 128C12 94 30 62 57 43L67 42Z" fill="url(#jgzt-main)" />
-  <circle cx="223" cy="119" r="14" fill="url(#jgzt-main)" />
-  <rect x="218" y="136" width="22" height="46" rx="8" fill="url(#jgzt-main)" />
+  <!-- J+G 外壳 - 天蓝青绿渐变主体 -->
+  <path d="M67 42C92 22 125 14 159 19C193 24 223 43 239 73V93H221V78C207 54 183 38 155 33C127 28 98 33 75 49C52 65 37 91 33 119C29 147 36 176 53 199C70 222 96 237 124 241C152 245 181 238 204 222C217 213 228 201 236 187V154H218V136H257V191C248 210 235 227 218 239C191 259 157 268 123 264C89 260 58 245 36 220C14 195 4 162 8 128C12 94 30 62 57 43L67 42Z" fill="url(#jgzt-shell)" opacity="0.7" />
+  <circle cx="223" cy="119" r="14" fill="url(#jgzt-shell)" opacity="0.7" />
+  <rect x="218" y="136" width="22" height="46" rx="8" fill="url(#jgzt-shell)" opacity="0.7" />
 
-  <!-- 内部光纹 -->
-  <path d="M57 96C90 96 112 108 144 117C165 123 182 126 186 137C189 146 176 154 158 162C143 168 132 175 132 182C132 188 141 193 152 197L195 212" fill="none" stroke="url(#jgzt-shine)" stroke-width="3" />
+  <!-- Z+T 公路 - 蜿蜒曲折的明亮道路 -->
+  <!-- 左侧道路起点 (Z的顶端) -->
+  <path d="M57 96C90 96 112 108 144 117C165 123 182 126 186 137C189 146 176 154 158 162C143 168 132 175 132 182C132 188 141 193 152 197L195 212C175 225 152 231 127 230C97 229 70 215 53 193L66 186L132 156L87 168L83 159L145 134L120 129L70 146C63 130 61 112 64 95L57 96Z" fill="url(#zt-road)" opacity="0.25" />
+  
+  <!-- Z 字形公路主干（蜿蜒形状） -->
+  <path d="M64 95 C90 98 112 108 144 117 C165 123 182 126 186 137 C189 146 176 154 158 162 C143 168 132 175 132 182 C132 188 141 193 152 197 L195 212" 
+        fill="none" stroke="url(#zt-road)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- 公路内部亮光 -->
+  <path d="M64 95 C90 98 112 108 144 117 C165 123 182 126 186 137 C189 146 176 154 158 162 C143 168 132 175 132 182 C132 188 141 193 152 197 L195 212" 
+        fill="none" stroke="#E0F2FE" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" />
+  
+  <!-- T 的横向连接（公路分支） -->
+  <path d="M96 184L130 197" stroke="url(#zt-road)" stroke-width="10" stroke-linecap="round" />
+  <path d="M136 199L162 206" stroke="url(#zt-road)" stroke-width="10" stroke-linecap="round" />
+  <path d="M170 208L196 216" stroke="url(#zt-road)" stroke-width="10" stroke-linecap="round" />
+  
+  <!-- 公路内部亮光 - T分支 -->
+  <path d="M96 184L130 197" stroke="#E0F2FE" stroke-width="3" stroke-linecap="round" opacity="0.5" />
+  <path d="M136 199L162 206" stroke="#E0F2FE" stroke-width="3" stroke-linecap="round" opacity="0.5" />
+  <path d="M170 208L196 216" stroke="#E0F2FE" stroke-width="3" stroke-linecap="round" opacity="0.5" />
 
-  <!-- 核心高光 -->
-  <path d="M85 163C100 154 119 145 143 136C167 127 179 120 179 111C179 103 167 96 145 89L93 73C105 69 117 67 129 67C150 67 170 73 186 86V175L121 160C117 159 114 161 112 164C110 168 112 172 116 174L141 185C104 174 83 168 76 167L85 163Z" fill="#E0F2FE" opacity="0.15" />
+  <!-- Z+T 核心高光 -->
+  <path d="M85 163C100 154 119 145 143 136C167 127 179 120 179 111C179 103 167 96 145 89L93 73C105 69 117 67 129 67C150 67 170 73 186 86V175L121 160C117 159 114 161 112 164C110 168 112 172 116 174L141 185C104 174 83 168 76 167L85 163Z" fill="url(#zt-glow)" />
 </svg>
