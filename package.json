@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "postbuild": "bash scripts/postbuild.sh"
+    "postbuild": "bash scripts/postbuild.sh && bash scripts/prerender.sh"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.2",
