@@ -77,10 +77,10 @@ export default function AIChatbot() {
 
   return (
     <>
-      {/* Floating button */}
+      {/* Floating button - always visible, fixed on screen */}
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-4 md:bottom-6 right-4 md:right-6 z-[9999] btn-cta text-white w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.4)] cursor-pointer animate-pulse-glow hover:scale-110 transition-transform duration-200"
+        className="fixed bottom-6 right-6 z-[9999] btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.5)] cursor-pointer animate-pulse-glow hover:scale-110 active:scale-95 transition-all duration-200 ring-2 ring-sky-400/20"
         aria-label="Open AI Chat"
         style={{ display: open ? 'none' : 'flex' }}
       >
