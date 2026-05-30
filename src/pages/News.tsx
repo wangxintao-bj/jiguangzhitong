@@ -116,8 +116,8 @@ export default function News() {
       <SEO
         titleZh="新闻资讯"
         titleEn="News"
-        descriptionZh="北京集光智通科技有限公司最新动态、产品发布与行业前沿资讯。"
-        descriptionEn="Latest news, product launches and industry insights from Jiguang Zhitong Technology."
+        descriptionZh="北京集光智通科技有限公司最新动态 - 激光透窗超员检测系统部署案例、人数识别技术演进、产品发布与公安交警执法装备行业前沿资讯。"
+        descriptionEn="Jiguang Zhitong Technology news - laser through-glass overload detection deployments, occupant recognition technology advances, product launches and law enforcement tech insights."
         path="news"
       />
       {/* Header */}

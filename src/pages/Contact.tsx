@@ -82,8 +82,8 @@ export default function Contact() {
       <SEO
         titleZh="联系我们"
         titleEn="Contact Us"
-        descriptionZh="与北京集光智通科技有限公司联系 - 获取激光透窗、视频监控与智能交通解决方案的专业咨询。"
-        descriptionEn="Contact Jiguang Zhitong Technology for professional consultation on laser through-glass, video surveillance and smart traffic solutions."
+        descriptionZh="与北京集光智通科技有限公司联系 - 获取激光透窗超员检测系统、车内人数识别设备、智能交通解决方案的专业咨询。电话13910846727，提供公安交警执法装备选型与配置定制服务。"
+        descriptionEn="Contact Jiguang Zhitong Technology for consultation on laser through-glass overload detection, occupant recognition and smart traffic solutions. Call 13910846727."
         path="contact"
       />
       {/* Header */}

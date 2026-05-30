@@ -154,8 +154,8 @@ export default function Videos() {
       <SEO
         titleZh="视频演示"
         titleEn="Video Demos"
-        descriptionZh="集光智通产品视频演示，直观展示激光透窗、智能交通监控、夜视增强等产品性能。"
-        descriptionEn="Jiguang Zhitong product demos - laser through-glass, smart traffic monitoring, night vision enhancement and more."
+        descriptionZh="集光智通产品视频演示 - 激光透窗超员检测演示、无人机挂载车内人数识别实测、智能交通监控、夜视增强与透窗识别效果实拍。直观展示车窗透视超员检测与人数识别技术。"
+        descriptionEn="Jiguang Zhitong product demos - laser through-glass overload detection, drone-mounted occupant recognition, smart traffic monitoring and night vision. See through-glass recognition in action."
         path="videos"
       />
       <section className="py-16 relative overflow-hidden tech-grid">

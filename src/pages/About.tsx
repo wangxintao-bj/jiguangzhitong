@@ -26,8 +26,8 @@ export default function About() {
       <SEO
         titleZh="关于我们"
         titleEn="About Us"
-        descriptionZh="了解北京集光智通科技有限公司 - 专注于视频监控、激光透窗与智能交通领域的高新技术企业。"
-        descriptionEn="Learn about Jiguang Zhitong Technology - a high-tech enterprise focused on video surveillance, laser through-glass and smart traffic solutions."
+        descriptionZh="了解北京集光智通科技有限公司 - 专注激光透窗超员检测、车内人数识别与智能交通领域的高新技术企业。自主研发激光透窗技术，提供车窗透视人数识别系统、超员检测设备及公安/交警执法解决方案。"
+        descriptionEn="Learn about Jiguang Zhitong Technology - a high-tech enterprise specializing in laser through-glass overload detection, occupant recognition and smart traffic solutions for law enforcement."
         path="about"
       />
       {/* Page hero */}
@@ -41,6 +41,10 @@ export default function About() {
               <span className="bg-gradient-to-r from-sky-400 to-green-400 bg-clip-text text-transparent">有限公司</span>
             </h1>
             <p className="text-slate-300 text-lg leading-relaxed">{t('about.desc')}</p>
+            <p className="text-slate-400 text-base mt-4 leading-relaxed">
+              公司自主研发的<strong className="text-sky-300">激光透窗技术</strong>，可穿透车窗与建筑玻璃进行<strong className="text-sky-300">车内人数识别</strong>与<strong className="text-sky-300">超员检测</strong>，
+              为公安交警部门提供固定卡口、便携设备、无人机挂载三种部署形态的执法装备。
+            </p>
           </div>
         </div>
       </section>
@@ -77,7 +81,7 @@ export default function About() {
       {/* Core strengths */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="section-heading text-3xl font-bold text-white mb-12">核心优势</h2>
+          <h2 className="section-heading text-3xl font-bold text-white mb-12">激光透窗与人数识别核心技术优势</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
             {cores.map((c, i) => (
               <div key={i} className="product-card rounded-2xl p-6">
@@ -99,7 +103,7 @@ export default function About() {
       {/* Timeline */}
       <section className="py-16 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="section-heading text-3xl font-bold text-white mb-12">发展历程</h2>
+          <h2 className="section-heading text-3xl font-bold text-white mb-12">发展历程 - 从激光透窗技术研发到超员检测产品落地</h2>
           <div className="relative mt-8">
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-500 to-green-500" />
             <div className="space-y-8">
