@@ -96,6 +96,17 @@ const newsItems: NewsItem[] = [
     date: '2024-04-15',
     views: '2,540',
   },
+  {
+    id: 'N009',
+    tagKey: 'news.tag.industry',
+    titleZh: 'G40沪陕高速南阳段发生重大交通事故，公安部派工作组赶赴现场',
+    titleEn: 'Major Traffic Accident on G40 Expressway in Nanyang, Ministry of Public Security Dispatch Task Force',
+    summaryZh: '2026年5月28日凌晨2时40分左右，G40沪陕高速河南省南阳市桐柏毛集段发生一起重大交通事故。一辆核载9人、实载16人的大通客车追尾半挂货车，目前已致13人死亡、3人受伤。事故发生后，公安部高度重视，迅速派出由交通管理局领导带队的工作组赶赴南阳指导调查处置工作。此次事故再次凸显了超员载客的重大安全隐患，车内人数智能识别技术对于执法预警具有重要价值。',
+    summaryEn: 'At approximately 2:40 AM on May 28, 2026, a major traffic accident occurred on the G40 Expressway in Nanyang, Henan Province. A passenger bus (capacity 9, actual 16 occupants) rear-ended a semi-trailer truck, resulting in 13 deaths and 3 injuries. The Ministry of Public Security dispatched a task force to the scene. This incident highlights the critical importance of overload detection technology for traffic safety enforcement.',
+    date: '2026-05-28',
+    views: '8,760',
+    featured: true,
+  },
 ]
 
 const tagColors: Record<string, string> = {
