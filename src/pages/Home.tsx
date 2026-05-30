@@ -138,8 +138,8 @@ export default function Home() {
       <SEO
         titleZh="首页"
         titleEn="Home"
-        descriptionZh="北京集光智通科技有限公司 - 聚焦激光透窗、视频监控与智能交通解决方案,服务公安、交警及各类执法场景。"
-        descriptionEn="Jiguang Zhitong Technology - Laser through-glass, video surveillance and smart traffic solutions for law enforcement."
+        descriptionZh="北京集光智通科技有限公司 - 聚焦激光透窗、超员检测与人数识别技术，提供视频监控、智能交通解决方案。服务公安、交警及各类执法场景，支持车窗透视超员检测、车内人数识别等核心功能。"
+        descriptionEn="Jiguang Zhitong Technology - Specializing in laser through-glass, overload detection and occupant recognition for law enforcement."
         path=""
       />
       {/* Hero Section */}
@@ -170,17 +170,21 @@ export default function Home() {
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
                 <span className="text-white">{t('hero.title1')}</span>
               </h1>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-sky-300 via-cyan-200 to-slate-100 bg-clip-text text-transparent">
                   {t('hero.title2')}
                 </span>
-              </h1>
+              </h2>
 
               <p className="text-slate-200 text-lg md:text-xl mb-8 max-w-3xl leading-relaxed">
                 {t('hero.subtitle')}
               </p>
+              <p className="text-slate-200 text-sm md:text-base mb-8 max-w-3xl leading-relaxed">
+                集光智通自主研发的<strong>激光透窗</strong>技术，实现车窗与建筑玻璃后的<strong>超员检测</strong>与<strong>人数识别</strong>，广泛应用于公安执法、交警巡查等场景。提供固定卡口、便携设备、无人机挂载三种部署方式，适配不同执法需求。
+              </p>
 
-              <div className="grid gap-3 sm:grid-cols-3 mb-8 max-w-3xl">
+              <h3 className="sr-only">集光智通核心优势</h3>
+          <div className="grid gap-3 sm:grid-cols-3 mb-8 max-w-3xl">
                 {[
                   {
                     label: lang === 'zh' ? '服务对象' : 'Client Focus',

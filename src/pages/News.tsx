@@ -76,6 +76,26 @@ const newsItems: NewsItem[] = [
     date: '2024-06-12',
     views: '1,970',
   },
+  {
+    id: 'N007',
+    tagKey: 'news.tag.product',
+    titleZh: '激光透窗超员检测系统在多地交警部门落地应用',
+    titleEn: 'Laser Through-Glass Overload Detection System Deployed in Multiple Cities',
+    summaryZh: '集光智通激光透窗超员检测系统已在多个省市交警部门完成部署，通过车窗透视技术实现车内人数识别与超员预警，有效提升路面执法效率。系统支持固定卡口与便携两种部署模式，单车道检测准确率达98%以上。',
+    summaryEn: 'Jiguang Zhitong\'s laser through-glass overload detection system has been deployed in multiple cities. It uses through-glass technology for occupant counting and overload alerts, significantly improving traffic enforcement efficiency with over 98% detection accuracy.',
+    date: '2024-05-20',
+    views: '3,120',
+  },
+  {
+    id: 'N008',
+    tagKey: 'news.tag.tech',
+    titleZh: '基于深度学习的人数识别算法在透窗场景中的优化实践',
+    titleEn: 'Deep Learning-Based Occupant Recognition Optimization for Through-Glass Scenarios',
+    summaryZh: '本文介绍了集光智通在激光透窗人数识别领域的AI算法优化成果。针对车窗玻璃反光、雨雾遮挡、光照变化等复杂条件，团队开发了多模态融合识别算法，在确保低延迟的同时显著提升识别精度，人数识别准确率达到96%。',
+    summaryEn: 'This article presents Jiguang Zhitong\'s AI algorithm optimization for through-glass occupant recognition. The team developed a multimodal fusion algorithm addressing glass reflection, rain, fog, and lighting variations, achieving 96% recognition accuracy with low latency.',
+    date: '2024-04-15',
+    views: '2,540',
+  },
 ]
 
 const tagColors: Record<string, string> = {
