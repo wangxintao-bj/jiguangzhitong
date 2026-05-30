@@ -29,7 +29,7 @@ export default function Scenarios() {
       accent: 'sky',
       audienceZh: '公安执法 / 重点巡查',
       audienceEn: 'Police enforcement / priority patrol',
-      introZh: '面向车窗、建筑玻璃等隔离介质下的远距观察与现场取证任务。',
+      introZh: '面向车窗、建筑玻璃等隔离介质下的远距观察与现场取证任务。通过激光透窗技术实现在车门闭锁状态下的车内人数识别与超员检测，适用于公安侦查中的非接触式排查。',
       introEn: 'Designed for remote observation and evidence capture through vehicle windows or building glass.',
       tasksZh: ['透窗观察与重点区域取证', '异常目标识别与行为分析', '夜间或复杂光照环境巡查'],
       tasksEn: ['Through-glass observation and evidence capture', 'Target recognition and behavior analysis', 'Night or complex-light inspections'],
@@ -43,7 +43,7 @@ export default function Scenarios() {
       accent: 'green',
       audienceZh: '交通执法 / 路面治理',
       audienceEn: 'Traffic enforcement / roadway governance',
-      introZh: '覆盖固定卡口、重点路段与机动执法协同的超员识别与结构化取证任务。',
+      introZh: '覆盖固定卡口、重点路段与机动执法协同的超员识别与人数识别取证任务。通过激光透窗超员检测系统，实现车窗内司乘人数自动识别与超员预警，支持交警路面执法的快速筛查。',
       introEn: 'Supports overload detection and structured evidence across checkpoints, key roads, and mobile enforcement.',
       tasksZh: ['透窗人数识别取证', '超员违法快速筛查', '固定卡口与机动执法联动'],
       tasksEn: ['Occupant recognition evidence', 'Rapid overload screening', 'Checkpoint and mobile enforcement coordination'],
@@ -99,7 +99,7 @@ export default function Scenarios() {
       accent: 'cyan',
       audienceZh: '道路管控 / 全天候筛查',
       audienceEn: 'Roadway control / all-weather screening',
-      introZh: '适合重点路段全天候筛查、异常车辆预警与车辆结构化联动处置。',
+      introZh: '适合重点路段全天候筛查、异常车辆预警与车辆结构化联动处置。重点面向道路上的超员检测与人数识别筛查任务，支持全天候激光透窗识别与超员预警联动。',
       introEn: 'Suited for all-weather screening, anomaly alerts, and structured vehicle response on key roads.',
       tasksZh: ['道路超员识别预警', '重点路段全天候管控', '过车结构化分析与联动'],
       tasksEn: ['Roadway overload alerts', 'All-weather control on key roads', 'Structured vehicle analysis and coordination'],
@@ -194,8 +194,8 @@ export default function Scenarios() {
       <SEO
         titleZh="应用场景"
         titleEn="Applications"
-        descriptionZh="集光智通产品在公安侦查、交通执法、边界防控、城市安防、应急指挥与道路管控中的应用方案。"
-        descriptionEn="Jiguang Zhitong solutions for police investigation, traffic enforcement, border control, urban security, emergency command and road control."
+        descriptionZh="集光智通激光透窗超员检测与人数识别系统在公安侦查、交通执法超员筛查、边界防控、城市安防、应急指挥与道路管控中的应用方案。覆盖车窗人数识别、车内超员检测、固定卡口与机动执法等场景。"
+        descriptionEn="Jiguang Zhitong laser through-glass overload detection and occupant recognition solutions for police investigation, traffic overload screening, border control, urban security and road enforcement."
         path="scenarios"
       />
       <section className="relative overflow-hidden border-b border-sky-500/10 py-16 tech-grid">
@@ -327,6 +327,7 @@ export default function Scenarios() {
             </h2>
           </div>
 
+          <h2 className="sr-only">激光透窗超员检测与人数识别应用场景优化重点</h2>
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {focusPoints.map(item => {
               const style = accentMap[item.accent]

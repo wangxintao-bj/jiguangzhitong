@@ -26,7 +26,7 @@ const products: Product[] = [
     category: 'traffic',
     nameZh: '高配版激光透窗人数识别系统',
     nameEn: 'Advanced Through-Glass Occupant Recognition System',
-    descZh: '面向重点道路与固定卡口场景，采用正向主相机 + 侧向人数识别相机组合，兼顾双光谱抓拍、透窗识别与高精度结构化取证。',
+    descZh: '面向重点道路与固定卡口场景，采用正向主相机 + 侧向人数识别相机组合，兼顾双光谱抓拍、激光透窗识别与高精度人数识别取证。支持超员检测、车内人数结构化分析，适用于交警超员筛查与公安执法。',
     descEn: 'Built for key roadways and fixed checkpoints, combining frontal capture and side occupant recognition for through-glass detection and structured evidence collection.',
     specs: [
       { labelZh: '主相机', labelEn: 'Main Camera', value: '双900万像素 / 4096×2160' },
@@ -48,7 +48,7 @@ const products: Product[] = [
     category: 'traffic',
     nameZh: '便携式激光透窗智能识别系统',
     nameEn: 'Portable Laser Through-Glass Intelligent Recognition System',
-    descZh: '一体化便携设计，支持电池供电与快速上岗，适合临时检查、机动稽查、专项整治等移动布控型交通执法任务。',
+    descZh: '一体化便携设计，支持电池供电与快速上岗，内置激光透窗超员检测与人数识别引擎，适合临时检查、机动稽查、专项整治等移动布控型交通执法任务。可在任意路段快速部署进行车内人数识别。',
     descEn: 'An all-in-one portable platform with battery power and rapid deployment, designed for mobile inspection, spot checks, and temporary enforcement operations.',
     specs: [
       { labelZh: '系统组成', labelEn: 'System', value: '车牌相机 + 透窗相机 + 全景相机 + 边缘计算' },
@@ -70,7 +70,7 @@ const products: Product[] = [
     category: 'traffic',
     nameZh: '简配版激光透窗超员检测系统',
     nameEn: 'Standard Through-Glass Overload Detection System',
-    descZh: '保留透窗识别与超员预警核心能力，在保证识别效果的同时简化主相机配置，更适合标准路段与规模化部署建设。',
+    descZh: '保留激光透窗识别与超员预警核心能力，专注车内人数识别与超员检测任务。在保证识别效果的同时简化主相机配置，更适合县区道路与规模化部署建设。',
     descEn: 'A lighter through-glass overload detection solution retaining the core recognition pipeline while lowering deployment complexity for standard road sections.',
     specs: [
       { labelZh: '主相机', labelEn: 'Main Camera', value: '900万像素 / 4096×2160' },
@@ -90,7 +90,7 @@ const products: Product[] = [
     category: 'laser',
     nameZh: '激光透窗无人机挂载（透视眼）JG-WRJ-GZ1',
     nameEn: 'Drone-mounted Laser Through-Glass Imaging System JG-WRJ-GZ1',
-    descZh: '面向公安执法与空中侦测场景，集成30倍光学变焦、脉冲近红外补光与激光透窗技术，可在白天、夜间及微光环境下远距离穿透车窗及建筑玻璃进行非接触式观察取证。',
+    descZh: '面向公安执法与空中侦测场景，集成30倍光学变焦、脉冲近红外补光与激光透窗技术，可在白天、夜间及微光环境下远距离穿透车窗及建筑玻璃进行车内人数识别与超员检测取证。',
     descEn: 'An aerial through-glass imaging payload for law enforcement and airborne inspection, combining 30x optical zoom, pulsed near-infrared illumination, and proprietary laser through-glass imaging for long-range evidence capture day or night.',
     specs: [
       { labelZh: '传感器', labelEn: 'Sensor', value: '1/2.6" 1080P Global Shutter CMOS' },
@@ -364,8 +364,8 @@ export default function Products() {
       <SEO
         titleZh="产品中心"
         titleEn="Products"
-        descriptionZh="集光智通核心产品线：激光透窗系统、视频监控设备、智能交通解决方案，覆盖固定卡口、便携部署与无人机挂载。"
-        descriptionEn="Jiguang Zhitong product portfolio: laser through-glass systems, video surveillance and smart traffic solutions for fixed, portable and drone-mounted deployment."
+        descriptionZh="集光智通激光透窗产品线：高配版/简配版/便携式超员检测与人数识别系统，车载人数识别设备，智能交通抓拍系统，全彩夜视及PTZ监控摄像机，无人机挂载透窗侦察吊舱。覆盖固定卡口、标准路段、机动执法与空中侦测。"
+        descriptionEn="Jiguang Zhitong laser through-glass product line: Advanced/Standard/Portable overload detection and occupant recognition systems, smart traffic enforcement cameras, drone-mounted through-glass payloads, PTZ surveillance cameras."
         path="products"
       />
       {/* Header */}
@@ -390,7 +390,7 @@ export default function Products() {
                   {lang === 'zh' ? '系列聚焦 · 激光透窗超员检测' : 'Featured Series · Through-Glass Occupant Detection'}
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
-                  {lang === 'zh' ? '高配 / 简配 / 便携三型产品矩阵' : 'Three-tier Portfolio for Through-Glass Enforcement'}
+                  {lang === 'zh' ? '高配 / 简配 / 便携三型激光透窗超员检测与人数识别产品矩阵' : 'Three-tier Portfolio for Through-Glass Overload Detection &amp; Occupant Recognition'}
                 </h2>
                 <p className="text-slate-300 text-base md:text-lg leading-relaxed max-w-3xl mb-6">
                   {lang === 'zh'
@@ -498,6 +498,7 @@ export default function Products() {
             </Link>
           </div>
 
+          <h3 className="sr-only">激光透窗超员检测选型指南</h3>
           <div className="grid gap-5 lg:grid-cols-3">
             {selectionGuides.map(item => (
               <div key={item.titleZh} className={`rounded-[28px] border bg-gradient-to-br p-6 shadow-[0_18px_48px_rgba(2,8,23,0.22)] ${item.accent === 'sky' ? 'border-sky-400/20 from-sky-500/10 to-slate-950/90' : item.accent === 'green' ? 'border-emerald-400/20 from-emerald-500/10 to-slate-950/90' : 'border-indigo-400/20 from-indigo-500/10 to-slate-950/90'}`}>
