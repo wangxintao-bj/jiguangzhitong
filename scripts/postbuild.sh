@@ -109,3 +109,12 @@ Sitemap: ${SITE_URL}/sitemap.xml
 Sitemap: ${SITE_URL}/sitemap_baidu.xml
 ROBOTS_EOF
 echo "✅ robots.txt generated in dist"
+
+# Inject build timestamp into index.html to force CDN cache busting
+BUILD_TIME=$(date -u +'%Y%m%d%H%M%S')
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  sed -i '' "s/BUILD_PLACEHOLDER/${BUILD_TIME}/g" "$DIST_DIR/index.html"
+else
+  sed -i "s/BUILD_PLACEHOLDER/${BUILD_TIME}/g" "$DIST_DIR/index.html"
+fi
+echo "✅ Build version ${BUILD_TIME} injected into index.html"
