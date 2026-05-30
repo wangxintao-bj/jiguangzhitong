@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLang } from '../contexts/LangContext'
 import { MessageCircle, X, Send, Bot, User } from 'lucide-react'
 
@@ -53,88 +53,85 @@ export default function AIChatbot() {
   const [thinking, setThinking] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // ---- Drag state for floating button ----
-  const [dragging, setDragging] = useState(false)
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
-  const [pos, setPos] = useState(() => {
-    const saved = typeof window !== 'undefined' ? localStorage.getItem('chatbot_pos') : null
-    if (saved) {
-      try { return JSON.parse(saved) } catch {}
-    }
-    return { x: window.innerWidth - 80, y: window.innerHeight - 100 }
+  // ---- Draggable floating button ----
+  const [btnPos, setBtnPos] = useState(() => {
+    try {
+      const saved = localStorage.getItem('chatbot_pos')
+      if (saved) return JSON.parse(saved)
+    } catch {}
+    return { x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300, y: typeof window !== 'undefined' ? window.innerHeight - 100 : 600 }
   })
-  const btnRef = useRef<HTMLButtonElement>(null)
-  const hasMovedRef = useRef(false)
-  const movedDistance = useRef(0)
 
-  const constrain = useCallback((x: number, y: number) => {
-    const w = window.innerWidth
-    const h = window.innerHeight
-    const btnSize = 56
-    return {
-      x: Math.max(8, Math.min(x, w - btnSize - 8)),
-      y: Math.max(8, Math.min(y, h - btnSize - 8)),
-    }
-  }, [])
+  const dragState = useRef<{ dragging: boolean; ox: number; oy: number; startX: number; startY: number; moved: boolean }>({
+    dragging: false, ox: 0, oy: 0, startX: 0, startY: 0, moved: false,
+  })
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setDragging(true)
-    hasMovedRef.current = false
-    movedDistance.current = 0
-    setDragStart({ x: e.clientX - pos.x, y: e.clientY - pos.y })
-    e.preventDefault()
+  // Handle drag on the floating button
+  const onBtnDown = (clientX: number, clientY: number) => {
+    const ds = dragState.current
+    ds.dragging = true
+    ds.moved = false
+    ds.startX = clientX
+    ds.startY = clientY
+    ds.ox = clientX - btnPos.x
+    ds.oy = clientY - btnPos.y
   }
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    const touch = e.touches[0]
-    setDragging(true)
-    hasMovedRef.current = false
-    movedDistance.current = 0
-    setDragStart({ x: touch.clientX - pos.x, y: touch.clientY - pos.y })
-  }
-
+  // Track mouse/touch moves globally when dragging
   useEffect(() => {
-    if (!dragging) return
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const newPos = constrain(e.clientX - dragStart.x, e.clientY - dragStart.y)
-      movedDistance.current += Math.abs(newPos.x - pos.x) + Math.abs(newPos.y - pos.y)
-      if (movedDistance.current > 10) hasMovedRef.current = true
-      setPos(newPos)
+    const onMove = (e: MouseEvent | TouchEvent) => {
+      const ds = dragState.current
+      if (!ds.dragging) return
+      const cx = 'touches' in e ? e.touches[0].clientX : e.clientX
+      const cy = 'touches' in e ? e.touches[0].clientY : e.clientY
+      const dx = cx - ds.startX
+      const dy = cy - ds.startY
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) ds.moved = true
+      if (ds.moved) {
+        setBtnPos({
+          x: Math.max(0, Math.min(cx - ds.ox, window.innerWidth - 56)),
+          y: Math.max(0, Math.min(cy - ds.oy, window.innerHeight - 56)),
+        })
+      }
     }
-
-    const handleTouchMove = (e: TouchEvent) => {
-      const touch = e.touches[0]
-      const newPos = constrain(touch.clientX - dragStart.x, touch.clientY - dragStart.y)
-      movedDistance.current += Math.abs(newPos.x - pos.x) + Math.abs(newPos.y - pos.y)
-      if (movedDistance.current > 10) hasMovedRef.current = true
-      setPos(newPos)
+    const onUp = () => {
+      if (dragState.current.dragging) {
+        // Save position
+        const pos = dragState.current.moved ? btnPos : null
+        dragState.current.dragging = false
+        dragState.current.moved = false
+        if (pos) localStorage.setItem('chatbot_pos', JSON.stringify(pos))
+      }
     }
-
-    const handleEnd = () => {
-      setDragging(false)
-      localStorage.setItem('chatbot_pos', JSON.stringify(pos))
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', handleEnd)
-    window.addEventListener('touchmove', handleTouchMove, { passive: true })
-    window.addEventListener('touchend', handleEnd)
-
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    window.addEventListener('touchmove', onMove, { passive: true })
+    window.addEventListener('touchend', onUp)
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleEnd)
-      window.removeEventListener('touchmove', handleTouchMove)
-      window.removeEventListener('touchend', handleEnd)
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+      window.removeEventListener('touchmove', onMove)
+      window.removeEventListener('touchend', onUp)
     }
-  }, [dragging, dragStart, constrain, pos])
+  }, [btnPos])
 
-  useEffect(() => {
-    if (!dragging) {
-      localStorage.setItem('chatbot_pos', JSON.stringify(pos))
+  const handleBtnMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault()
+    onBtnDown(e.clientX, e.clientY)
+  }
+
+  const handleBtnTouchStart = (e: React.TouchEvent) => {
+    onBtnDown(e.touches[0].clientX, e.touches[0].clientY)
+  }
+
+  const handleBtnClick = () => {
+    // Only open if not dragged
+    if (!dragState.current.moved) {
+      setOpen(true)
     }
-  }, [pos, dragging])
-  // ---- End drag logic ----
+    dragState.current.moved = false
+  }
+  // ---- End drag ----
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -157,24 +154,17 @@ export default function AIChatbot() {
     }, 800 + Math.random() * 600)
   }
 
-  const handleBtnClick = () => {
-    if (!hasMovedRef.current) {
-      setOpen(true)
-    }
-  }
-
   return (
     <>
       {/* Floating draggable button */}
       <button
-        ref={btnRef}
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
+        onMouseDown={handleBtnMouseDown}
+        onTouchStart={handleBtnTouchStart}
         onClick={handleBtnClick}
-        className="fixed z-[9999] btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.5)] cursor-grab active:cursor-grabbing hover:scale-110 active:scale-95 transition-all duration-200 ring-2 ring-sky-400/20"
+        className="fixed z-[9999] btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.5)] cursor-grab active:cursor-grabbing hover:scale-110 active:scale-95 transition-all duration-200 ring-2 ring-sky-400/20 select-none touch-none"
         style={{
-          left: pos.x,
-          top: pos.y,
+          left: btnPos.x,
+          top: btnPos.y,
           display: open ? 'none' : 'flex',
         }}
         aria-label="Open AI Chat"
@@ -182,17 +172,16 @@ export default function AIChatbot() {
         <MessageCircle size={24} />
       </button>
 
-      {/* Chat window */}
+      {/* Chat window - draggable via header */}
       {open && (
-        <DraggableChatWindow
-          pos={pos}
-          onPosChange={setPos}
-          onClose={() => setOpen(false)}
+        <DraggableWindow
+          btnPos={btnPos}
+          onClose={() => { setOpen(false); localStorage.setItem('chatbot_pos', JSON.stringify(btnPos)) }}
           title={t('chat.title')}
           subtitle={t('chat.subtitle')}
         >
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 select-text">
             {messages.map((msg, i) => (
               <div key={i} className={`flex gap-2 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                 <div className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center ${
@@ -243,74 +232,65 @@ export default function AIChatbot() {
               </button>
             </div>
           </div>
-        </DraggableChatWindow>
+        </DraggableWindow>
       )}
     </>
   )
 }
 
-/** Draggable chat window wrapper */
-function DraggableChatWindow({
-  pos, onPosChange, onClose, title, subtitle, children
+/** Draggable chat window */
+function DraggableWindow({
+  btnPos, onClose, title, subtitle, children
 }: {
-  pos: { x: number; y: number }
-  onPosChange: (p: { x: number; y: number }) => void
+  btnPos: { x: number; y: number }
   onClose: () => void
   title: string
   subtitle: string
   children: React.ReactNode
 }) {
-  const [winPos, setWinPos] = useState({ x: Math.min(pos.x, window.innerWidth - 400), y: Math.min(pos.y, window.innerHeight - 540) })
-  const [dragging, setDragging] = useState(false)
-  const dragRef = useRef({ startX: 0, startY: 0, winX: 0, winY: 0 })
+  const [pos, setPos] = useState({
+    x: Math.min(btnPos.x, typeof window !== 'undefined' ? window.innerWidth - 370 : 400),
+    y: Math.min(btnPos.y, typeof window !== 'undefined' ? window.innerHeight - 540 : 600),
+  })
+
+  const dragRef = useRef({ dragging: false, startX: 0, startY: 0, posX: 0, posY: 0 })
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('button')) return
-    setDragging(true)
-    dragRef.current = { startX: e.clientX, startY: e.clientY, winX: winPos.x, winY: winPos.y }
+    dragRef.current = { dragging: true, startX: e.clientX, startY: e.clientY, posX: pos.x, posY: pos.y }
     e.preventDefault()
   }
 
   useEffect(() => {
-    if (!dragging) return
-    const handleMove = (e: MouseEvent) => {
-      const dx = e.clientX - dragRef.current.startX
-      const dy = e.clientY - dragRef.current.startY
-      setWinPos({
-        x: Math.max(0, Math.min(dragRef.current.winX + dx, window.innerWidth - 320)),
-        y: Math.max(0, Math.min(dragRef.current.winY + dy, window.innerHeight - 100)),
+    const onMove = (e: MouseEvent) => {
+      const d = dragRef.current
+      if (!d.dragging) return
+      setPos({
+        x: Math.max(0, Math.min(d.posX + e.clientX - d.startX, window.innerWidth - 320)),
+        y: Math.max(0, Math.min(d.posY + e.clientY - d.startY, window.innerHeight - 100)),
       })
     }
-    const handleEnd = () => {
-      setDragging(false)
-      onPosChange(winPos)
+    const onUp = () => {
+      dragRef.current.dragging = false
     }
-    window.addEventListener('mousemove', handleMove)
-    window.addEventListener('mouseup', handleEnd)
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
     return () => {
-      window.removeEventListener('mousemove', handleMove)
-      window.removeEventListener('mouseup', handleEnd)
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
     }
-  }, [dragging, winPos, onPosChange])
-
-  const windowStyle: React.CSSProperties = {
-    position: 'fixed',
-    zIndex: 9999,
-    left: winPos.x,
-    top: winPos.y,
-    width: 'calc(100vw - 32px)',
-    maxWidth: '384px',
-    height: 'min(480px, calc(100vh - 120px))',
-    background: 'rgba(15,23,42,0.97)',
-    borderRadius: '16px',
-    overflow: 'hidden',
-    boxShadow: '0 18px 64px rgba(2,8,23,0.6)',
-    display: 'flex',
-    flexDirection: 'column',
-  }
+  }, [])
 
   return (
-    <div style={windowStyle} className="glow-border">
+    <div
+      className="fixed z-[9999] w-[calc(100vw-32px)] md:w-96 flex flex-col rounded-2xl overflow-hidden shadow-[0_18px_64px_rgba(2,8,23,0.6)] glow-border"
+      style={{
+        left: pos.x,
+        top: pos.y,
+        height: 'min(480px, calc(100vh - 120px))',
+        background: 'rgba(15,23,42,0.97)',
+      }}
+    >
       {/* Draggable header */}
       <div
         onMouseDown={handleMouseDown}
