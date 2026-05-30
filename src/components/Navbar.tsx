@@ -58,7 +58,7 @@ export default function Navbar() {
                 {t('nav.slogan')}
               </p>
 
-              <p className="hidden sm:block mt-1 text-[16px] md:text-[22px] xl:text-[24px] font-bold text-white leading-[1.06] max-w-[250px] md:max-w-[340px] xl:max-w-[400px] truncate">
+              <p className="block mt-1 text-[16px] md:text-[22px] xl:text-[24px] font-bold text-white leading-[1.06] max-w-[250px] md:max-w-[340px] xl:max-w-[400px] truncate">
                 {brandTitle}
               </p>
               <p className="hidden md:block mt-1.5 text-[11px] md:text-[12px] text-slate-400 tracking-[0.06em] truncate">
