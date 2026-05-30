@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useLang } from '../contexts/LangContext'
 import { MessageCircle, X, Send, Bot, User } from 'lucide-react'
 
@@ -9,7 +9,6 @@ interface Message {
 
 const aiResponses: Record<'zh' | 'en', Record<string, string[]>> = {
   zh: {
-
     '产品': ['我们的核心产品包括：激光透窗摄像机、高清视频监控系统、智能交通抓拍系统、夜视增强摄像机。请问您对哪类产品感兴趣？', '我们提供的光电产品具备高分辨率、全天候工作能力，特别适合公安、交警等执法部门使用。'],
     '激光': ['激光透窗技术是我公司核心专利技术，可有效穿透雨雾、玻璃等介质，实现全天候高清成像。支持的最大探测距离可达数百米。', '我们的激光透窗产品已在多地公安局和交管部门得到成功应用，图像清晰度达到行业领先水平。'],
     '交通': ['智能交通系统包括：超清违章抓拍、车牌识别、车速检测、闯红灯自动记录等功能，满足交管部门全面执法需求。', '我们的交通监控系统支持24小时不间断工作，在雨雾等恶劣天气下仍能清晰抓拍。'],
@@ -24,7 +23,7 @@ const aiResponses: Record<'zh' | 'en', Record<string, string[]>> = {
     'traffic': ['Our smart traffic system includes: HD violation capture, license plate recognition, speed detection, and automatic red-light recording to meet comprehensive enforcement needs.'],
     'price': ['Product pricing depends on your specific requirements and purchase quantity. Please leave your contact information and our sales engineer will contact you within 24 hours.'],
     'contact': ['You can reach us by filling out the inquiry form on our website or calling our sales hotline. We promise to respond within 24 hours.'],
-    'company': ['Wuxi Jiguang Zhitong Technology Co., Ltd. is a high-tech enterprise focused on video surveillance, optoelectronics, and intelligent transportation, primarily serving law enforcement agencies.'],
+    'company': ['Jiguang Zhitong Technology Co., Ltd. is a high-tech enterprise focused on video surveillance, optoelectronics, and intelligent transportation, primarily serving law enforcement agencies.'],
   } as any
 }
 
@@ -54,6 +53,89 @@ export default function AIChatbot() {
   const [thinking, setThinking] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  // ---- Drag state for floating button ----
+  const [dragging, setDragging] = useState(false)
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  const [pos, setPos] = useState(() => {
+    const saved = typeof window !== 'undefined' ? localStorage.getItem('chatbot_pos') : null
+    if (saved) {
+      try { return JSON.parse(saved) } catch {}
+    }
+    return { x: window.innerWidth - 80, y: window.innerHeight - 100 }
+  })
+  const btnRef = useRef<HTMLButtonElement>(null)
+  const hasMovedRef = useRef(false)
+  const movedDistance = useRef(0)
+
+  const constrain = useCallback((x: number, y: number) => {
+    const w = window.innerWidth
+    const h = window.innerHeight
+    const btnSize = 56
+    return {
+      x: Math.max(8, Math.min(x, w - btnSize - 8)),
+      y: Math.max(8, Math.min(y, h - btnSize - 8)),
+    }
+  }, [])
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setDragging(true)
+    hasMovedRef.current = false
+    movedDistance.current = 0
+    setDragStart({ x: e.clientX - pos.x, y: e.clientY - pos.y })
+    e.preventDefault()
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0]
+    setDragging(true)
+    hasMovedRef.current = false
+    movedDistance.current = 0
+    setDragStart({ x: touch.clientX - pos.x, y: touch.clientY - pos.y })
+  }
+
+  useEffect(() => {
+    if (!dragging) return
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const newPos = constrain(e.clientX - dragStart.x, e.clientY - dragStart.y)
+      movedDistance.current += Math.abs(newPos.x - pos.x) + Math.abs(newPos.y - pos.y)
+      if (movedDistance.current > 10) hasMovedRef.current = true
+      setPos(newPos)
+    }
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0]
+      const newPos = constrain(touch.clientX - dragStart.x, touch.clientY - dragStart.y)
+      movedDistance.current += Math.abs(newPos.x - pos.x) + Math.abs(newPos.y - pos.y)
+      if (movedDistance.current > 10) hasMovedRef.current = true
+      setPos(newPos)
+    }
+
+    const handleEnd = () => {
+      setDragging(false)
+      localStorage.setItem('chatbot_pos', JSON.stringify(pos))
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseup', handleEnd)
+    window.addEventListener('touchmove', handleTouchMove, { passive: true })
+    window.addEventListener('touchend', handleEnd)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleEnd)
+      window.removeEventListener('touchmove', handleTouchMove)
+      window.removeEventListener('touchend', handleEnd)
+    }
+  }, [dragging, dragStart, constrain, pos])
+
+  useEffect(() => {
+    if (!dragging) {
+      localStorage.setItem('chatbot_pos', JSON.stringify(pos))
+    }
+  }, [pos, dragging])
+  // ---- End drag logic ----
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
@@ -75,39 +157,40 @@ export default function AIChatbot() {
     }, 800 + Math.random() * 600)
   }
 
+  const handleBtnClick = () => {
+    if (!hasMovedRef.current) {
+      setOpen(true)
+    }
+  }
+
   return (
     <>
-      {/* Floating button - always visible, fixed on screen */}
+      {/* Floating draggable button */}
       <button
-        onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-[9999] btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.5)] cursor-pointer animate-pulse-glow hover:scale-110 active:scale-95 transition-all duration-200 ring-2 ring-sky-400/20"
+        ref={btnRef}
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
+        onClick={handleBtnClick}
+        className="fixed z-[9999] btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.5)] cursor-grab active:cursor-grabbing hover:scale-110 active:scale-95 transition-all duration-200 ring-2 ring-sky-400/20"
+        style={{
+          left: pos.x,
+          top: pos.y,
+          display: open ? 'none' : 'flex',
+        }}
         aria-label="Open AI Chat"
-        style={{ display: open ? 'none' : 'flex' }}
       >
         <MessageCircle size={24} />
       </button>
 
       {/* Chat window */}
       {open && (
-        <div className="fixed bottom-4 md:bottom-6 right-4 md:right-6 z-[9999] w-[calc(100vw-32px)] md:w-96 flex flex-col rounded-2xl overflow-hidden shadow-[0_18px_64px_rgba(2,8,23,0.6)] glow-border"
-          style={{ height: 'min(480px, calc(100vh - 120px))', background: 'rgba(15,23,42,0.97)' }}>
-          
-          {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-sky-500/20">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-green-500 flex items-center justify-center">
-                <Bot size={16} className="text-white" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-white">{t('chat.title')}</p>
-                <p className="text-xs text-sky-400">{t('chat.subtitle')}</p>
-              </div>
-            </div>
-            <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-white cursor-pointer transition-colors">
-              <X size={18} />
-            </button>
-          </div>
-
+        <DraggableChatWindow
+          pos={pos}
+          onPosChange={setPos}
+          onClose={() => setOpen(false)}
+          title={t('chat.title')}
+          subtitle={t('chat.subtitle')}
+        >
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {messages.map((msg, i) => (
@@ -160,8 +243,93 @@ export default function AIChatbot() {
               </button>
             </div>
           </div>
-        </div>
+        </DraggableChatWindow>
       )}
     </>
+  )
+}
+
+/** Draggable chat window wrapper */
+function DraggableChatWindow({
+  pos, onPosChange, onClose, title, subtitle, children
+}: {
+  pos: { x: number; y: number }
+  onPosChange: (p: { x: number; y: number }) => void
+  onClose: () => void
+  title: string
+  subtitle: string
+  children: React.ReactNode
+}) {
+  const [winPos, setWinPos] = useState({ x: Math.min(pos.x, window.innerWidth - 400), y: Math.min(pos.y, window.innerHeight - 540) })
+  const [dragging, setDragging] = useState(false)
+  const dragRef = useRef({ startX: 0, startY: 0, winX: 0, winY: 0 })
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('button')) return
+    setDragging(true)
+    dragRef.current = { startX: e.clientX, startY: e.clientY, winX: winPos.x, winY: winPos.y }
+    e.preventDefault()
+  }
+
+  useEffect(() => {
+    if (!dragging) return
+    const handleMove = (e: MouseEvent) => {
+      const dx = e.clientX - dragRef.current.startX
+      const dy = e.clientY - dragRef.current.startY
+      setWinPos({
+        x: Math.max(0, Math.min(dragRef.current.winX + dx, window.innerWidth - 320)),
+        y: Math.max(0, Math.min(dragRef.current.winY + dy, window.innerHeight - 100)),
+      })
+    }
+    const handleEnd = () => {
+      setDragging(false)
+      onPosChange(winPos)
+    }
+    window.addEventListener('mousemove', handleMove)
+    window.addEventListener('mouseup', handleEnd)
+    return () => {
+      window.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('mouseup', handleEnd)
+    }
+  }, [dragging, winPos, onPosChange])
+
+  const windowStyle: React.CSSProperties = {
+    position: 'fixed',
+    zIndex: 9999,
+    left: winPos.x,
+    top: winPos.y,
+    width: 'calc(100vw - 32px)',
+    maxWidth: '384px',
+    height: 'min(480px, calc(100vh - 120px))',
+    background: 'rgba(15,23,42,0.97)',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    boxShadow: '0 18px 64px rgba(2,8,23,0.6)',
+    display: 'flex',
+    flexDirection: 'column',
+  }
+
+  return (
+    <div style={windowStyle} className="glow-border">
+      {/* Draggable header */}
+      <div
+        onMouseDown={handleMouseDown}
+        className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-sky-500/20 cursor-grab active:cursor-grabbing select-none"
+      >
+        <div className="flex items-center gap-2 pointer-events-none">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-green-500 flex items-center justify-center">
+            <Bot size={16} className="text-white" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-white">{title}</p>
+            <p className="text-xs text-sky-400">{subtitle}</p>
+          </div>
+        </div>
+        <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer transition-colors">
+          <X size={18} />
+        </button>
+      </div>
+      {children}
+    </div>
   )
 }
