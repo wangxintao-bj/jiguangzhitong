@@ -80,7 +80,7 @@ export default function AIChatbot() {
       {/* Floating button */}
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg cursor-pointer animate-pulse-glow"
+        className="fixed bottom-4 md:bottom-6 right-4 md:right-6 z-[9999] btn-cta text-white w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.4)] cursor-pointer animate-pulse-glow hover:scale-110 transition-transform duration-200"
         aria-label="Open AI Chat"
         style={{ display: open ? 'none' : 'flex' }}
       >
@@ -89,8 +89,8 @@ export default function AIChatbot() {
 
       {/* Chat window */}
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-80 md:w-96 flex flex-col rounded-2xl overflow-hidden shadow-2xl glow-border"
-          style={{ height: '480px', background: 'rgba(15,23,42,0.97)' }}>
+        <div className="fixed bottom-4 md:bottom-6 right-4 md:right-6 z-[9999] w-[calc(100vw-32px)] md:w-96 flex flex-col rounded-2xl overflow-hidden shadow-[0_18px_64px_rgba(2,8,23,0.6)] glow-border"
+          style={{ height: 'min(480px, calc(100vh - 120px))', background: 'rgba(15,23,42,0.97)' }}>
           
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-sky-500/20">
