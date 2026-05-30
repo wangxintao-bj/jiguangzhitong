@@ -34,9 +34,6 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Post-build SEO (sitemap, 404 fallback, robots)
-        run: bash scripts/postbuild.sh
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
