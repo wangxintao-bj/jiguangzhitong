@@ -54,12 +54,10 @@ export default function AIChatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // ---- Draggable floating button ----
+  // Always start at top-right on page load. Clear old localStorage every time.
   const [btnPos, setBtnPos] = useState(() => {
-    try {
-      const saved = localStorage.getItem('chatbot_pos')
-      if (saved) return JSON.parse(saved)
-    } catch {}
-    return { x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300, y: typeof window !== 'undefined' ? 20 : 20 }
+    try { localStorage.removeItem('chatbot_pos') } catch {}
+    return { x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300, y: 20 }
   })
 
   const dragState = useRef<{ dragging: boolean; ox: number; oy: number; startX: number; startY: number; moved: boolean }>({
@@ -100,7 +98,7 @@ export default function AIChatbot() {
         const pos = dragState.current.moved ? btnPos : null
         dragState.current.dragging = false
         dragState.current.moved = false
-        if (pos) localStorage.setItem('chatbot_pos', JSON.stringify(pos))
+        // Don't save position - always start at top on next page load
       }
     }
     window.addEventListener('mousemove', onMove)
@@ -176,7 +174,7 @@ export default function AIChatbot() {
       {open && (
         <DraggableWindow
           btnPos={btnPos}
-          onClose={() => { setOpen(false); localStorage.setItem('chatbot_pos', JSON.stringify(btnPos)) }}
+          onClose={() => { setOpen(false) }}
           title={t('chat.title')}
           subtitle={t('chat.subtitle')}
         >
