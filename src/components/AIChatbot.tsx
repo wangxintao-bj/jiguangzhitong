@@ -53,84 +53,126 @@ export default function AIChatbot() {
   const [thinking, setThinking] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // ---- Draggable floating button ----
-  // Always start at top-right on page load. Clear old localStorage every time.
-  const [btnPos, setBtnPos] = useState(() => {
-    try { localStorage.removeItem('chatbot_pos') } catch {}
-    return { x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300, y: 20 }
-  })
+  // ============================================================
+  // DRAGGABLE FLOATING BUTTON — direct DOM manipulation
+  // ============================================================
+  const [btnVisible, setBtnVisible] = useState(true)
+  const btnRef = useRef<HTMLButtonElement>(null)
 
-  const dragState = useRef<{ dragging: boolean; ox: number; oy: number; startX: number; startY: number; moved: boolean }>({
-    dragging: false, ox: 0, oy: 0, startX: 0, startY: 0, moved: false,
-  })
+  // Position state (for React rendering)
+  const [btnPos, setBtnPos] = useState(() => ({
+    x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300,
+    y: 20,
+  }))
 
-  // Handle drag on the floating button
-  const onBtnDown = (clientX: number, clientY: number) => {
-    const ds = dragState.current
-    ds.dragging = true
-    ds.moved = false
-    ds.startX = clientX
-    ds.startY = clientY
-    ds.ox = clientX - btnPos.x
-    ds.oy = clientY - btnPos.y
-  }
+  // Drag state (refs to avoid stale closures and re-render during drag)
+  const isDragging = useRef(false)
+  const didDrag = useRef(false)
+  const startPos = useRef({ x: 0, y: 0 })
+  const offset = useRef({ x: 0, y: 0 })
 
-  // Track mouse/touch moves globally when dragging
+  // Single effect: sets up global move/end handlers once (no deps)
   useEffect(() => {
     const onMove = (e: MouseEvent | TouchEvent) => {
-      const ds = dragState.current
-      if (!ds.dragging) return
+      if (!isDragging.current || !btnRef.current) return
       const cx = 'touches' in e ? e.touches[0].clientX : e.clientX
       const cy = 'touches' in e ? e.touches[0].clientY : e.clientY
-      const dx = cx - ds.startX
-      const dy = cy - ds.startY
-      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) ds.moved = true
-      if (ds.moved) {
-        setBtnPos({
-          x: Math.max(0, Math.min(cx - ds.ox, window.innerWidth - 56)),
-          y: Math.max(0, Math.min(cy - ds.oy, window.innerHeight - 56)),
-        })
-      }
+      const dx = cx - startPos.current.x
+      const dy = cy - startPos.current.y
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) didDrag.current = true
+      if (!didDrag.current) return
+      // Calculate new position within viewport
+      const newX = Math.max(0, Math.min(cx - offset.current.x, window.innerWidth - 56))
+      const newY = Math.max(0, Math.min(cy - offset.current.y, window.innerHeight - 56))
+      // Direct DOM manipulation for smooth animation
+      btnRef.current.style.left = newX + 'px'
+      btnRef.current.style.top = newY + 'px'
+      // Also update React state
+      setBtnPos({ x: newX, y: newY })
     }
+
     const onUp = () => {
-      if (dragState.current.dragging) {
-        // Save position
-        const pos = dragState.current.moved ? btnPos : null
-        dragState.current.dragging = false
-        dragState.current.moved = false
-        // Don't save position - always start at top on next page load
+      if (isDragging.current) {
+        isDragging.current = false
+        didDrag.current = false
       }
     }
+
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     window.addEventListener('touchmove', onMove, { passive: true })
     window.addEventListener('touchend', onUp)
+
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
       window.removeEventListener('touchmove', onMove)
       window.removeEventListener('touchend', onUp)
     }
-  }, [btnPos])
+  }, [])
+
+  const startDrag = (clientX: number, clientY: number) => {
+    isDragging.current = true
+    didDrag.current = false
+    startPos.current = { x: clientX, y: clientY }
+    offset.current = { x: clientX - btnPos.x, y: clientY - btnPos.y }
+  }
 
   const handleBtnMouseDown = (e: React.MouseEvent) => {
     e.preventDefault()
-    onBtnDown(e.clientX, e.clientY)
+    startDrag(e.clientX, e.clientY)
   }
 
   const handleBtnTouchStart = (e: React.TouchEvent) => {
-    onBtnDown(e.touches[0].clientX, e.touches[0].clientY)
+    startDrag(e.touches[0].clientX, e.touches[0].clientY)
   }
 
   const handleBtnClick = () => {
-    // Only open if not dragged
-    if (!dragState.current.moved) {
+    // Only open chat if it was a click, not a drag
+    if (!didDrag.current) {
       setOpen(true)
+      setBtnVisible(false)
     }
-    dragState.current.moved = false
+    didDrag.current = false
   }
-  // ---- End drag ----
 
+  // ============================================================
+  // DRAGGABLE CHAT WINDOW
+  // ============================================================
+  const [winPos, setWinPos] = useState(() => ({
+    x: typeof window !== 'undefined' ? Math.min(window.innerWidth - 80, window.innerWidth - 370) : 0,
+    y: 20,
+  }))
+  const winRef = useRef<HTMLDivElement>(null)
+  const winDrag = useRef({ dragging: false, sx: 0, sy: 0, wx: 0, wy: 0 })
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      if (!winDrag.current.dragging) return
+      const dx = e.clientX - winDrag.current.sx
+      const dy = e.clientY - winDrag.current.sy
+      const newX = Math.max(0, Math.min(winDrag.current.wx + dx, window.innerWidth - 320))
+      const newY = Math.max(0, Math.min(winDrag.current.wy + dy, window.innerHeight - 100))
+      setWinPos({ x: newX, y: newY })
+    }
+    const onUp = () => { winDrag.current.dragging = false }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [])
+
+  const handleWinHeaderMouseDown = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('button')) return
+    e.preventDefault()
+    winDrag.current = { dragging: true, sx: e.clientX, sy: e.clientY, wx: winPos.x, wy: winPos.y }
+  }
+
+  // ============================================================
+  // MESSAGE LOGIC
+  // ============================================================
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
@@ -152,10 +194,14 @@ export default function AIChatbot() {
     }, 800 + Math.random() * 600)
   }
 
+  // ============================================================
+  // RENDER
+  // ============================================================
   return (
     <>
       {/* Floating draggable button */}
       <button
+        ref={btnRef}
         onMouseDown={handleBtnMouseDown}
         onTouchStart={handleBtnTouchStart}
         onClick={handleBtnClick}
@@ -170,14 +216,37 @@ export default function AIChatbot() {
         <MessageCircle size={24} />
       </button>
 
-      {/* Chat window - draggable via header */}
+      {/* Chat window */}
       {open && (
-        <DraggableWindow
-          btnPos={btnPos}
-          onClose={() => { setOpen(false) }}
-          title={t('chat.title')}
-          subtitle={t('chat.subtitle')}
+        <div
+          ref={winRef}
+          className="fixed z-[9999] w-[calc(100vw-32px)] md:w-96 flex flex-col rounded-2xl overflow-hidden shadow-[0_18px_64px_rgba(2,8,23,0.6)] glow-border select-none"
+          style={{
+            left: winPos.x,
+            top: winPos.y,
+            height: 'min(480px, calc(100vh - 120px))',
+            background: 'rgba(15,23,42,0.97)',
+          }}
         >
+          {/* Draggable header */}
+          <div
+            onMouseDown={handleWinHeaderMouseDown}
+            className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-sky-500/20 cursor-grab active:cursor-grabbing select-none"
+          >
+            <div className="flex items-center gap-2 pointer-events-none">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-green-500 flex items-center justify-center">
+                <Bot size={16} className="text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">{t('chat.title')}</p>
+                <p className="text-xs text-sky-400">{t('chat.subtitle')}</p>
+              </div>
+            </div>
+            <button onClick={() => { setOpen(false); setBtnVisible(true) }} className="text-slate-400 hover:text-white cursor-pointer transition-colors">
+              <X size={18} />
+            </button>
+          </div>
+
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 select-text">
             {messages.map((msg, i) => (
@@ -230,84 +299,8 @@ export default function AIChatbot() {
               </button>
             </div>
           </div>
-        </DraggableWindow>
+        </div>
       )}
     </>
-  )
-}
-
-/** Draggable chat window */
-function DraggableWindow({
-  btnPos, onClose, title, subtitle, children
-}: {
-  btnPos: { x: number; y: number }
-  onClose: () => void
-  title: string
-  subtitle: string
-  children: React.ReactNode
-}) {
-  const [pos, setPos] = useState({
-    x: Math.min(btnPos.x, typeof window !== 'undefined' ? window.innerWidth - 370 : 400),
-    y: Math.min(btnPos.y, typeof window !== 'undefined' ? window.innerHeight - 540 : 600),
-  })
-
-  const dragRef = useRef({ dragging: false, startX: 0, startY: 0, posX: 0, posY: 0 })
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).closest('button')) return
-    dragRef.current = { dragging: true, startX: e.clientX, startY: e.clientY, posX: pos.x, posY: pos.y }
-    e.preventDefault()
-  }
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const d = dragRef.current
-      if (!d.dragging) return
-      setPos({
-        x: Math.max(0, Math.min(d.posX + e.clientX - d.startX, window.innerWidth - 320)),
-        y: Math.max(0, Math.min(d.posY + e.clientY - d.startY, window.innerHeight - 100)),
-      })
-    }
-    const onUp = () => {
-      dragRef.current.dragging = false
-    }
-    window.addEventListener('mousemove', onMove)
-    window.addEventListener('mouseup', onUp)
-    return () => {
-      window.removeEventListener('mousemove', onMove)
-      window.removeEventListener('mouseup', onUp)
-    }
-  }, [])
-
-  return (
-    <div
-      className="fixed z-[9999] w-[calc(100vw-32px)] md:w-96 flex flex-col rounded-2xl overflow-hidden shadow-[0_18px_64px_rgba(2,8,23,0.6)] glow-border"
-      style={{
-        left: pos.x,
-        top: pos.y,
-        height: 'min(480px, calc(100vh - 120px))',
-        background: 'rgba(15,23,42,0.97)',
-      }}
-    >
-      {/* Draggable header */}
-      <div
-        onMouseDown={handleMouseDown}
-        className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-slate-800 to-slate-900 border-b border-sky-500/20 cursor-grab active:cursor-grabbing select-none"
-      >
-        <div className="flex items-center gap-2 pointer-events-none">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-500 to-green-500 flex items-center justify-center">
-            <Bot size={16} className="text-white" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-white">{title}</p>
-            <p className="text-xs text-sky-400">{subtitle}</p>
-          </div>
-        </div>
-        <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer transition-colors">
-          <X size={18} />
-        </button>
-      </div>
-      {children}
-    </div>
   )
 }
