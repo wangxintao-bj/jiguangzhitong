@@ -54,18 +54,26 @@ export default function AIChatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   // ============================================================
-  // DRAGGABLE FLOATING BUTTON — direct DOM manipulation
   // ============================================================
-  const [btnVisible, setBtnVisible] = useState(true)
+  // DRAGGABLE FLOATING BUTTON — force DOM position via ref
+  // ============================================================
   const btnRef = useRef<HTMLButtonElement>(null)
 
-  // Position state (for React rendering)
+  // Position state
   const [btnPos, setBtnPos] = useState(() => ({
     x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300,
-    y: 20,
+    y: typeof window !== 'undefined' ? 20 : 20,
   }))
 
-  // Drag state (refs to avoid stale closures and re-render during drag)
+  // Force position on DOM after mount (bypass React style quirk)
+  useEffect(() => {
+    if (btnRef.current) {
+      btnRef.current.style.left = btnPos.x + 'px'
+      btnRef.current.style.top = btnPos.y + 'px'
+    }
+  }, [])
+
+  // Drag state
   const isDragging = useRef(false)
   const didDrag = useRef(false)
   const startPos = useRef({ x: 0, y: 0 })
@@ -81,28 +89,22 @@ export default function AIChatbot() {
       const dy = cy - startPos.current.y
       if (Math.abs(dx) > 5 || Math.abs(dy) > 5) didDrag.current = true
       if (!didDrag.current) return
-      // Calculate new position within viewport
       const newX = Math.max(0, Math.min(cx - offset.current.x, window.innerWidth - 56))
       const newY = Math.max(0, Math.min(cy - offset.current.y, window.innerHeight - 56))
-      // Direct DOM manipulation for smooth animation
       btnRef.current.style.left = newX + 'px'
       btnRef.current.style.top = newY + 'px'
-      // Also update React state
       setBtnPos({ x: newX, y: newY })
     }
-
     const onUp = () => {
       if (isDragging.current) {
         isDragging.current = false
         didDrag.current = false
       }
     }
-
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     window.addEventListener('touchmove', onMove, { passive: true })
     window.addEventListener('touchend', onUp)
-
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
@@ -131,7 +133,7 @@ export default function AIChatbot() {
     // Only open chat if it was a click, not a drag
     if (!didDrag.current) {
       setOpen(true)
-      setBtnVisible(false)
+      // hiding handled by display:none via open state
     }
     didDrag.current = false
   }
@@ -208,7 +210,6 @@ export default function AIChatbot() {
         className="fixed z-[9999] btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.5)] cursor-grab active:cursor-grabbing hover:scale-110 active:scale-95 transition-all duration-200 ring-2 ring-sky-400/20 select-none touch-none"
         style={{
           left: btnPos.x,
-          top: btnPos.y,
           display: open ? 'none' : 'flex',
         }}
         aria-label="Open AI Chat"
@@ -242,7 +243,7 @@ export default function AIChatbot() {
                 <p className="text-xs text-sky-400">{t('chat.subtitle')}</p>
               </div>
             </div>
-            <button onClick={() => { setOpen(false); setBtnVisible(true) }} className="text-slate-400 hover:text-white cursor-pointer transition-colors">
+            <button onClick={() => { setOpen(false) }} className="text-slate-400 hover:text-white cursor-pointer transition-colors">
               <X size={18} />
             </button>
           </div>
