@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/company-logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="./company-logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="北京集光智通科技有限公司，聚焦激光透窗、视频监控与智能交通解决方案，服务公安、交警及各类执法场景。提供固定卡口、便携设备和无人机挂载多层级装备部署。" />
     <meta name="keywords" content="集光智通,激光透窗,视频监控,智能交通,公安执法,交警装备,透窗识别,超员检测,无人机挂载,北京安防" />
@@ -11,7 +11,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <meta name="build-version" content="BUILD_PLACEHOLDER" />
+    <meta name="build-version" content="20260531115951" />
     <title>北京集光智通科技有限公司 | 激光透窗 · 视频监控 · 智能交通</title>
 
     <!-- Open Graph -->
@@ -51,9 +51,41 @@
       ]
     }
     </script>
+    <script type="module" crossorigin src="./assets/index-B2HDe1k8.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B3uSCyor.css">
+    <script>
+    // Force chatbot button to top
+    (function(){
+      function setBtnTop(){
+        var btns = document.querySelectorAll('button');
+        for(var i=0;i<btns.length;i++){
+          var b = btns[i];
+          if(b.getAttribute('aria-label')==='Open AI Chat'){
+            b.style.position='fixed';
+            b.style.top='20px';
+            b.style.left=(window.innerWidth-80)+'px';
+            b.style.zIndex='9999';
+            break;
+          }
+        }
+      }
+      // Try immediately
+      setBtnTop();
+      // Also try after DOM ready
+      if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded', setBtnTop);
+      }
+      // Also keep trying for 5 seconds (React may mount late)
+      var tries=0;
+      var timer = setInterval(function(){
+        tries++;
+        setBtnTop();
+        if(tries>20) clearInterval(timer);
+      }, 250);
+    })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
