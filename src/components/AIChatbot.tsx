@@ -65,7 +65,13 @@ export default function AIChatbot() {
     y: typeof window !== 'undefined' ? 20 : 20,
   }))
 
-
+  // Force position on DOM after mount (bypass React style quirk)
+  useEffect(() => {
+    if (btnRef.current) {
+      btnRef.current.style.left = btnPos.x + 'px'
+      btnRef.current.style.top = btnPos.y + 'px'
+    }
+  }, [])
 
   // Drag state
   const isDragging = useRef(false)
@@ -204,6 +210,7 @@ export default function AIChatbot() {
         className="fixed z-[9999] btn-cta text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(6,182,212,0.5)] cursor-grab active:cursor-grabbing hover:scale-110 active:scale-95 transition-all duration-200 ring-2 ring-sky-400/20 select-none touch-none"
         style={{
           left: btnPos.x,
+          top: '20px',
           display: open ? 'none' : 'flex',
         }}
         aria-label="Open AI Chat"
