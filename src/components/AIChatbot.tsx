@@ -65,13 +65,7 @@ export default function AIChatbot() {
     y: typeof window !== 'undefined' ? 20 : 20,
   }))
 
-  // Force position on DOM after mount (bypass React style quirk)
-  useEffect(() => {
-    if (btnRef.current) {
-      btnRef.current.style.left = btnPos.x + 'px'
-      btnRef.current.style.top = btnPos.y + 'px'
-    }
-  }, [])
+
 
   // Drag state
   const isDragging = useRef(false)
