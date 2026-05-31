@@ -59,7 +59,7 @@ export default function AIChatbot() {
       const saved = localStorage.getItem('chatbot_pos')
       if (saved) return JSON.parse(saved)
     } catch {}
-    return { x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300, y: typeof window !== 'undefined' ? window.innerHeight - 100 : 600 }
+    return { x: typeof window !== 'undefined' ? window.innerWidth - 80 : 300, y: typeof window !== 'undefined' ? 20 : 20 }
   })
 
   const dragState = useRef<{ dragging: boolean; ox: number; oy: number; startX: number; startY: number; moved: boolean }>({
