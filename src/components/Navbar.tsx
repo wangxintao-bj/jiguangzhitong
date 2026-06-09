@@ -55,11 +55,11 @@ export default function Navbar() {
             </div>
 
             <div className="min-w-0">
-              <p className="max-w-[220px] md:max-w-[360px] xl:max-w-[460px] text-[11px] md:text-[13px] text-cyan-100 font-semibold leading-[1.15] tracking-[0.05em] drop-shadow-[0_0_10px_rgba(186,230,253,0.16)]">
+              <p className="hidden md:block max-w-[360px] xl:max-w-[460px] text-[13px] text-cyan-100 font-semibold leading-[1.15] tracking-[0.05em] drop-shadow-[0_0_10px_rgba(186,230,253,0.16)]">
                 {t('nav.slogan')}
               </p>
 
-              <p className="mt-1 text-[16px] md:text-[22px] xl:text-[24px] font-bold text-white leading-[1.06] max-w-[140px] sm:max-w-[250px] md:max-w-[340px] xl:max-w-[400px] truncate">
+              <p className="text-[15px] sm:text-[16px] md:text-[22px] xl:text-[24px] font-bold text-white leading-[1.15] max-w-[180px] sm:max-w-[250px] md:max-w-[340px] xl:max-w-[400px]">
                 {brandTitle}
               </p>
               <p className="hidden md:block mt-1.5 text-[11px] md:text-[12px] text-slate-400 tracking-[0.06em] truncate">
