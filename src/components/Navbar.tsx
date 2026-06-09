@@ -55,9 +55,7 @@ export default function Navbar() {
             </div>
 
             <div className="min-w-0">
-              <p className="hidden md:block max-w-[360px] xl:max-w-[460px] text-[13px] text-cyan-100 font-semibold leading-[1.15] tracking-[0.05em] drop-shadow-[0_0_10px_rgba(186,230,253,0.16)]">
-                {t('nav.slogan')}
-              </p>
+
 
               <p className="text-[15px] sm:text-[16px] md:text-[22px] xl:text-[24px] font-bold text-white leading-[1.15] max-w-[180px] sm:max-w-[250px] md:max-w-[340px] xl:max-w-[400px]">
                 {brandTitle}
