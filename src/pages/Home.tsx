@@ -167,11 +167,6 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* 公司全名 - 移动端可见 */}
-              <p className="text-sm md:text-base font-semibold text-sky-300/70 tracking-wider mb-3">
-                北京集光智通科技有限公司
-              </p>
-
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
                 <span className="text-white">{t('hero.title1')}</span>
               </h1>
