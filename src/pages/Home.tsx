@@ -138,7 +138,7 @@ export default function Home() {
       <SEO
         titleZh="首页"
         titleEn="Home"
-        descriptionZh="无锡集光智通科技有限公司 - 聚焦激光透窗、视频监控与智能交通解决方案，服务公安、交警及各类执法场景。"
+        descriptionZh="北京集光智通科技有限公司 - 聚焦激光透窗、视频监控与智能交通解决方案，服务公安、交警及各类执法场景。"
         descriptionEn="Jiguang Zhitong Technology - Laser through-glass, video surveillance and smart traffic solutions for law enforcement."
         path=""
       />

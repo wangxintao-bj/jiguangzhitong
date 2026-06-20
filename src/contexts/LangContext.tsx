@@ -19,7 +19,7 @@ const translations: Record<Lang, Record<string, string>> = {
     'nav.news': '新闻资讯',
     'nav.contact': '联系我们',
     'nav.lang': 'EN',
-    'nav.company': '无锡集光智通科技有限公司',
+    'nav.company': '北京集光智通科技有限公司',
     'nav.slogan': '让光电更加智能的守护我们的安全',
 
     // Hero
@@ -41,7 +41,7 @@ const translations: Record<Lang, Record<string, string>> = {
 
     // About
     'about.title': '关于我们',
-    'about.desc': '无锡集光智通科技有限公司是一家专注于视频监控、光电产品和智能交通领域的高新技术企业，致力于为公安、交警等政府执法部门提供先进的光电感知与智能处理解决方案。',
+    'about.desc': '北京集光智通科技有限公司是一家专注于视频监控、光电产品和智能交通领域的高新技术企业，致力于为公安、交警等政府执法部门提供先进的光电感知与智能处理解决方案。',
     'about.mission.title': '企业使命',
     'about.mission.text': '让光电更加智能的守护我们的安全',
     'about.vision.title': '企业愿景',
