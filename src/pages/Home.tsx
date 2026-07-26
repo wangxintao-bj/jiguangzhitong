@@ -513,15 +513,9 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glow-border rounded-[32px] bg-[linear-gradient(180deg,rgba(15,23,42,0.95),rgba(2,6,23,0.92))] px-6 py-10 text-center shadow-[0_24px_60px_rgba(2,8,23,0.28)] md:px-10">
             <Award size={40} className="mx-auto mb-4 text-sky-400" />
-            <span className="tech-tag mb-4 inline-block">{lang === 'zh' ? '合作与对接' : 'Engagement Flow'}</span>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
-              {lang === 'zh' ? '方案咨询、资料获取与项目沟通一次完成' : 'Consulting, documentation, and project alignment in one flow'}
-            </h2>
-            <p className="mx-auto max-w-3xl text-slate-300 leading-7">
-              {lang === 'zh'
-                ? '围绕政企客户常见的内部汇报、需求澄清和选型沟通链路，官网把核心方案、规格资料、视频演示与联系入口都集中到了更容易决策的位置。'
-                : 'The site now brings solution summaries, specification files, demo media, and contact entry points together for enterprise decision flows.'}
-            </p>
+            
+            
+            
 
             <div className="mt-8 grid gap-3 md:grid-cols-3">
               {[
