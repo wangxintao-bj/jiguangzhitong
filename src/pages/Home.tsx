@@ -222,11 +222,7 @@ export default function Home() {
                 <h3 className="mt-3 text-2xl md:text-3xl font-bold text-white leading-tight">
                   {lang === 'zh' ? '从核心技术到执法场景的完整交付链路' : 'A complete chain from core optics to enforcement scenarios'}
                 </h3>
-                <p className="mt-4 text-sm md:text-base leading-7 text-slate-300">
-                  {lang === 'zh'
-                    ? '官网首页现在把技术底座、重点客户、部署平台和项目对接方式放在同一视觉层级里，更符合政企访客查看资料时的决策路径。'
-                    : 'The hero now surfaces core technology, client focus, deployment platforms, and engagement flow in one decision-friendly layer.'}
-                </p>
+
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {[
