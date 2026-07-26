@@ -401,11 +401,7 @@ export default function Home() {
               <h2 className="section-heading text-3xl md:text-4xl font-bold text-white mb-4 inline-block">
                 {lang === 'zh' ? '激光透窗超员检测方案系列' : 'Through-Glass Occupant Detection Portfolio'}
               </h2>
-              <p className="text-slate-300 text-base md:text-lg leading-relaxed mt-6">
-                {lang === 'zh'
-                  ? '把高配版、简配版、便携式三型方案放到首页同一组推荐卡片中，访客能第一时间理解“固定卡口 + 标准部署 + 机动布控”的完整产品梯度。'
-                  : 'The homepage now presents advanced, standard, and portable options together so visitors quickly understand the full checkpoint, roadside, and mobile deployment ladder.'}
-              </p>
+              
             </div>
             <div className="flex flex-wrap gap-3">
               <Link to="/products" className="btn-cta text-white px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2 cursor-pointer">
