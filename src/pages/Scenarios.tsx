@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../contexts/LangContext'
 import SEO from '../components/SEO'
-import { Shield, Camera, Zap, Car, AlertTriangle, Globe, ArrowRight, ClipboardCheck, FileStack, Radar } from 'lucide-react'
+import { Shield, Camera, Zap, Car, AlertTriangle, Globe, ArrowRight } from 'lucide-react'
 
 type Accent = 'sky' | 'green' | 'indigo' | 'amber' | 'rose' | 'cyan'
 
@@ -154,41 +154,6 @@ export default function Scenarios() {
     },
   }
 
-  const focusPoints = [
-    {
-      icon: <ClipboardCheck size={22} />,
-      titleZh: '任务链路清晰',
-      titleEn: 'Clear task flow',
-      descZh: '先看场景，再看产品与资料，减少政企客户初筛成本。',
-      descEn: 'Review scenarios first, then products and documents with less initial screening effort.',
-      accent: 'sky' as const,
-    },
-    {
-      icon: <Radar size={22} />,
-      titleZh: '部署方式可判断',
-      titleEn: 'Deployment choices visible',
-      descZh: '明确固定、标准与机动布控的适配边界，避免方案混淆。',
-      descEn: 'Clarifies the fit among fixed, standard, and mobile deployment modes.',
-      accent: 'green' as const,
-    },
-    {
-      icon: <FileStack size={22} />,
-      titleZh: '资料准备更完整',
-      titleEn: 'Documentation is complete',
-      descZh: '场景页和产品页形成呼应，更方便导向规格书与视频材料。',
-      descEn: 'Scenario and product pages now better direct visitors toward specs and demo media.',
-      accent: 'indigo' as const,
-    },
-    {
-      icon: <Shield size={22} />,
-      titleZh: '表达更稳重',
-      titleEn: 'More authoritative tone',
-      descZh: '去掉空泛数字堆叠，改成更像政企方案汇报的表达方式。',
-      descEn: 'Replaces generic counters with a more enterprise-solution style presentation.',
-      accent: 'amber' as const,
-    },
-  ]
-
   return (
     <div className="min-h-screen pt-20">
       <SEO
@@ -205,11 +170,7 @@ export default function Scenarios() {
           <div className="grid gap-8 lg:grid-cols-[1fr,0.88fr] lg:items-end">
             <div className="max-w-3xl">
               <h1 className="mt-3 text-4xl md:text-5xl font-bold text-white leading-tight">{t('scenarios.title')}</h1>
-              <p className="mt-5 text-lg leading-8 text-slate-300">
-                {lang === 'zh'
-                  ? '这一页不再只做“行业罗列”，而是把典型执法与治理任务拆成可读的场景组合，方便访客先判断任务匹配度，再进入产品与资料层。'
-                  : 'Instead of a generic industry list, this page now organizes capabilities by mission patterns so visitors can judge fit before diving into products.'}
-              </p>
+
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3">
@@ -318,42 +279,16 @@ export default function Scenarios() {
         </div>
       </section>
 
-      <section className="border-y border-sky-500/10 bg-slate-950 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 max-w-3xl">
-            <span className="tech-tag mb-4 inline-block">{lang === 'zh' ? '页面优化重点' : 'Optimization Focus'}</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              {lang === 'zh' ? '这轮场景页更像方案汇报，而不是数字陈列' : 'This round makes the page read like a solution briefing'}
-            </h2>
-          </div>
-
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {focusPoints.map(item => {
-              const style = accentMap[item.accent]
-              return (
-                <div key={item.titleZh} className={`rounded-[28px] border bg-gradient-to-br p-6 ${style.panel}`}>
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-2xl border ${style.icon}`}>
-                    {item.icon}
-                  </div>
-                  <h3 className="mt-5 text-xl font-bold text-white">{lang === 'zh' ? item.titleZh : item.titleEn}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">{lang === 'zh' ? item.descZh : item.descEn}</p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="glow-border rounded-[32px] bg-[linear-gradient(180deg,rgba(15,23,42,0.96),rgba(2,6,23,0.92))] px-6 py-10 text-center shadow-[0_24px_60px_rgba(2,8,23,0.28)] md:px-10">
             <span className="tech-tag mb-4 inline-block">{lang === 'zh' ? '继续查看' : 'Next Step'}</span>
             <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">
-              {lang === 'zh' ? '确认场景匹配后，再进入产品与资料层会更高效' : 'After confirming scenario fit, move into products and documents more efficiently'}
+              {lang === 'zh' ? '确认场景匹配后,再进入产品与资料层会更高效' : 'After confirming scenario fit, move into products and documents more efficiently'}
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-slate-300 leading-7">
               {lang === 'zh'
-                ? '如果你已经明确自己属于固定卡口、标准路段、机动布控或空中侦测中的哪一类任务，下一步就可以直接查看产品矩阵或进入联系页面沟通配置。'
+                ? '如果你已经明确自己属于固定卡口、标准路段、机动布控或空中侦测中的哪一类任务,下一步就可以直接查看产品矩阵或进入联系页面沟通配置。'
                 : 'If you already know whether the mission is checkpoint, roadside, mobile, or aerial, the next step is to review the product portfolio or discuss configuration directly.'}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
