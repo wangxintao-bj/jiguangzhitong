@@ -24,7 +24,7 @@ const aiResponses: Record<'zh' | 'en', Record<string, string[]>> = {
     'traffic': ['Our smart traffic system includes: HD violation capture, license plate recognition, speed detection, and automatic red-light recording to meet comprehensive enforcement needs.'],
     'price': ['Product pricing depends on your specific requirements and purchase quantity. Please leave your contact information and our sales engineer will contact you within 24 hours.'],
     'contact': ['You can reach us by filling out the inquiry form on our website or calling our sales hotline. We promise to respond within 24 hours.'],
-    'company': ['Wuxi Jiguang Zhitong Technology Co., Ltd. is a high-tech enterprise focused on video surveillance, optoelectronics, and intelligent transportation, primarily serving law enforcement agencies.'],
+    'company': ['Beijing Jiguang Zhitong Technology Co., Ltd. is a high-tech enterprise focused on video surveillance, optoelectronics, and intelligent transportation, primarily serving law enforcement agencies.'],
   } as any
 }
 

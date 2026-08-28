@@ -158,7 +158,7 @@ const translations: Record<Lang, Record<string, string>> = {
     'nav.news': 'News',
     'nav.contact': 'Contact',
     'nav.lang': '中文',
-    'nav.company': 'Wuxi Jiguang Zhitong Technology Co., Ltd.',
+    'nav.company': 'Beijing Jiguang Zhitong Technology Co., Ltd.',
     'nav.slogan': 'Making Optoelectronics Smarter for Safer Communities',
 
     // Hero
@@ -180,7 +180,7 @@ const translations: Record<Lang, Record<string, string>> = {
 
     // About
     'about.title': 'About Us',
-    'about.desc': 'Wuxi Jiguang Zhitong Technology Co., Ltd. is a high-tech enterprise focused on video surveillance, optoelectronic products and intelligent transportation, dedicated to providing advanced optoelectronic sensing and intelligent processing solutions for law enforcement agencies.',
+    'about.desc': 'Beijing Jiguang Zhitong Technology Co., Ltd. is a high-tech enterprise focused on video surveillance, optoelectronic products and intelligent transportation, dedicated to providing advanced optoelectronic sensing and intelligent processing solutions for law enforcement agencies.',
     'about.mission.title': 'Mission',
     'about.mission.text': 'Make optoelectronics smarter to guard our safety',
     'about.vision.title': 'Vision',
