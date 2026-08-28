@@ -486,11 +486,6 @@ export default function Products() {
               <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
                 {lang === 'zh' ? '先按任务类型理解三型激光透窗方案' : 'Understand the three through-glass solutions by mission type'}
               </h2>
-              <p className="mt-4 text-base leading-7 text-slate-300">
-                {lang === 'zh'
-                  ? '相比只按产品名称浏览，这里先按固定卡口、标准路段和机动布控三类任务给出选型建议，更符合政企客户做初筛时的阅读方式。'
-                  : 'Instead of scanning product names first, this section frames recommendations by checkpoint, roadside, and mobile enforcement tasks.'}
-              </p>
             </div>
             <Link to="/contact" className="inline-flex items-center gap-2 text-sm font-medium text-sky-300 transition-colors hover:text-sky-200 cursor-pointer">
               {lang === 'zh' ? '带着场景来沟通配置' : 'Discuss configuration by scenario'}
